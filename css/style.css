@@ -1552,18 +1552,18 @@ body {
     }
 
     .modal {
-        padding: 15px;
+        padding: 20px;
     }
 
     .modal-window {
-        width: calc(100vw - 30px);
-        height: calc(100vh - 30px);
-        height: calc(100dvh - 30px);
+        width: calc(100vw - 40px);
+        height: calc(100vh - 60px);
+        height: calc(100dvh - 60px);
         min-width: 320px;
         min-height: 300px;
-        max-width: calc(100vw - 30px);
-        max-height: calc(100vh - 30px);
-        max-height: calc(100dvh - 30px);
+        max-width: calc(100vw - 40px);
+        max-height: calc(100vh - 60px);
+        max-height: calc(100dvh - 60px);
     }
 
     .blog-grid {
@@ -1596,6 +1596,16 @@ body {
         top: 50% !important;
         left: 50% !important;
         transform: translate(-50%, -50%) !important;
+    }
+    
+    /* 모바일에서 새로 나오는 창이 무조건 앞으로 오도록 z-index 강화 */
+    .modal[id*="postModal"],
+    .app-modal {
+        z-index: 9999 !important;
+    }
+    
+    .modal[id*="folderModal"] {
+        z-index: 9500 !important;
     }
     
     /* 드래그로 이동된 모달도 중앙으로 되돌리기 */
