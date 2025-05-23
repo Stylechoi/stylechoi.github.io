@@ -1533,22 +1533,22 @@ body {
         max-width: 60px !important;
     }
 
-    /* Dock을 모바일에서 적당한 크기로 조정 */
+    /* Dock을 모바일에서 더 작은 크기로 조정 */
     .dock {
-        padding: 10px 18px !important;
-        height: 80px !important;
-        border-radius: 22px !important;
+        padding: 8px 16px !important;
+        height: 75px !important;
+        border-radius: 20px !important;
     }
 
     .dock-item {
-        width: 60px !important;
-        height: 60px !important;
-        margin: 0 6px !important;
+        width: 55px !important;
+        height: 55px !important;
+        margin: 0 5px !important;
     }
 
     .dock-item:hover {
-        margin: 0 10px !important;
-        transform: scale(1.18) translateY(-3px) !important;
+        margin: 0 8px !important;
+        transform: scale(1.15) translateY(-3px) !important;
     }
 
     .modal {
@@ -1605,12 +1605,12 @@ body {
         position: relative;
     }
     
-    /* 모바일에서 로딩 화면 최적화 - 애플 로고 위로 올리고 로딩바 작게 */
+    /* 모바일에서 로딩 화면 최적화 - 애플 로고와 로딩바를 더 위로 올리기 */
     .boot-screen .apple-logo {
         width: 70px !important;
         height: 84px !important;
         margin-bottom: 40px !important;
-        margin-top: -61px !important;
+        margin-top: -75px !important;
     }
     
     .boot-screen .progress-container {
@@ -1624,10 +1624,16 @@ body {
         border-radius: 3px !important;
     }
     
-    /* 모바일에서 "My" 텍스트 숨기기 - "blog"만 표시 */
+    /* 모바일에서 "My" 텍스트 숨기기 - "blog"만 표시하고 왼쪽으로 이동 */
+    .menu-bar .menu-left {
+        justify-content: flex-start !important;
+    }
+    
     .menu-bar .menu-left .menu-title {
         font-size: 0 !important;
         color: transparent !important;
+        margin-left: -8px !important;
+        padding: 0 8px !important;
     }
     
     .menu-bar .menu-left .menu-title::after {
@@ -1685,20 +1691,20 @@ body {
         height: 350px;
     }
     
-    /* 더 작은 화면에서 dock 더 줄이기 */
+    /* 더 작은 화면에서 dock 더욱 더 줄이기 */
     .dock {
-        padding: 8px 16px !important;
-        height: 78px !important;
+        padding: 6px 14px !important;
+        height: 72px !important;
     }
     
     .dock-item {
-        width: 58px !important;
-        height: 58px !important;
+        width: 52px !important;
+        height: 52px !important;
     }
     
     .dock-item:hover {
-        transform: scale(1.15) translateY(-3px) !important;
-        margin: 0 10px !important;
+        transform: scale(1.12) translateY(-2px) !important;
+        margin: 0 8px !important;
     }
     
     .desktop-icons {
