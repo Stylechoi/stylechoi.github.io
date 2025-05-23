@@ -12,6 +12,19 @@ body {
     overflow: hidden;
     background: #000;
     height: 100vh;
+    height: 100dvh; /* Dynamic viewport height for mobile */
+    /* Safe area padding for notch devices */
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+    /* Touch optimization */
+    -webkit-touch-callout: none;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Momentum scrolling on iOS */
+    -webkit-overflow-scrolling: touch;
 }
 
 body.dark,
@@ -95,10 +108,13 @@ body.dark .desktop {
 .desktop {
     width: 100vw;
     height: 100vh;
+    height: 100dvh; /* Dynamic viewport height for mobile */
     background: url('../image/macOS-Monterey-wallpaper-Dark.jpg') center center/cover no-repeat;
     position: relative;
     opacity: 0;
     transition: opacity 0.8s ease;
+    /* Account for safe area */
+    padding-top: env(safe-area-inset-top);
 }
 
 .desktop.visible {
@@ -122,6 +138,10 @@ body.dark .desktop {
     z-index: 1000;
     font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", system-ui, sans-serif;
     padding: 0 16px;
+    /* Safe area support */
+    padding-top: max(0px, env(safe-area-inset-top));
+    padding-left: max(16px, env(safe-area-inset-left) + 16px);
+    padding-right: max(16px, env(safe-area-inset-right) + 16px);
 }
 
 .menu-left {
@@ -422,6 +442,11 @@ body.dark .desktop {
 .cc-toggle.active {
     background: #007AFF;
     color: white;
+}
+
+.cc-toggle:not(.active) {
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.6);
 }
 
 .cc-toggle:hover {
@@ -757,6 +782,8 @@ body.dark .cc-card:hover {
     left: 50%;
     transform: translateX(-50%);
     z-index: 1000;
+    /* Safe area support for bottom */
+    bottom: max(20px, env(safe-area-inset-bottom) + 20px);
 }
 
 .dock {
@@ -954,8 +981,12 @@ body.dark .cc-card:hover {
     background: rgba(246, 246, 246, 0.95);
     border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(20px);
-    cursor: move;
+    cursor: default;
     user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    pointer-events: auto;
 }
 
 .window-controls {
@@ -1040,10 +1071,12 @@ body.dark .cc-card:hover {
 }
 
 .modal-content {
-    padding: 32px;
-    overflow-y: auto;
+    padding: 30px;
     height: calc(100% - 60px);
-    background: rgba(255, 255, 255, 0.05);
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch; /* iOS 모멘텀 스크롤 */
+    background: transparent;
 }
 
 /* Pinned Posts Section */
@@ -1382,6 +1415,9 @@ body.dark .cc-card:hover {
 @media (max-width: 768px) {
     .menu-bar {
         padding: 0 12px;
+        height: 36px; /* 모바일에서 조금 더 높게 */
+        padding-left: max(12px, env(safe-area-inset-left) + 12px);
+        padding-right: max(12px, env(safe-area-inset-right) + 12px);
     }
     
     .menu-item {
@@ -1392,12 +1428,15 @@ body.dark .cc-card:hover {
     .control-center-panel {
         width: 280px;
         right: 12px;
+        right: max(12px, env(safe-area-inset-right) + 12px);
     }
     
     .desktop-icons {
         left: 15px;
         top: 40px;
         gap: 20px;
+        left: max(15px, env(safe-area-inset-left) + 15px);
+        top: max(40px, env(safe-area-inset-top) + 40px);
     }
 
     .desktop-icon {
@@ -1412,6 +1451,7 @@ body.dark .cc-card:hover {
 
     .dock {
         padding: 4px 12px;
+        height: 70px; /* 모바일에서 조금 낮게 */
     }
 
     .dock-item {
@@ -1425,14 +1465,18 @@ body.dark .cc-card:hover {
     }
 
     .modal {
-        padding: 20px;
+        padding: 15px;
     }
 
     .modal-window {
-        width: calc(100vw - 40px);
-        height: calc(100vh - 40px);
+        width: calc(100vw - 30px);
+        height: calc(100vh - 30px);
+        height: calc(100dvh - 30px);
         min-width: 320px;
         min-height: 300px;
+        max-width: calc(100vw - 30px);
+        max-height: calc(100vh - 30px);
+        max-height: calc(100dvh - 30px);
     }
 
     .blog-grid {
@@ -1446,14 +1490,155 @@ body.dark .cc-card:hover {
     .time {
         flex-direction: column;
         gap: 2px;
-    }
-    
-    .time-date {
         font-size: 11px;
     }
     
+    .time-date {
+        font-size: 10px;
+    }
+    
     .time-clock {
+        font-size: 11px;
+    }
+    
+    /* App 모달도 모바일 최적화 */
+    .app-modal .modal-window {
+        width: calc(100vw - 40px) !important;
+        height: calc(100vh - 80px) !important;
+        height: calc(100dvh - 80px) !important;
+        max-width: calc(100vw - 40px) !important;
+        max-height: calc(100vh - 80px) !important;
+        max-height: calc(100dvh - 80px) !important;
+    }
+    
+    /* 검색 모달 모바일 최적화 */
+    .search-modal {
+        padding-top: max(60px, env(safe-area-inset-top) + 60px);
+        padding-left: env(safe-area-inset-left);
+        padding-right: env(safe-area-inset-right);
+    }
+    
+    .search-container {
+        margin: 0 15px;
+    }
+    
+    .search-box {
+        padding: 12px 16px;
+    }
+    
+    #searchInput {
+        font-size: 16px; /* iOS에서 zoom 방지 */
+    }
+    
+    /* Velog 포스트 모바일 최적화 */
+    .velog-posts {
+        padding: 20px;
+        gap: 16px;
+        grid-template-columns: 1fr;
+    }
+    
+    .velog-post-card {
+        padding: 16px;
+        margin-bottom: 16px;
+    }
+    
+    .velog-post-image {
+        height: 120px;
+        margin-bottom: 12px;
+    }
+    
+    .velog-post-title {
+        font-size: 16px;
+        margin-bottom: 8px;
+    }
+    
+    .velog-post-date {
         font-size: 12px;
+        margin-bottom: 8px;
+    }
+    
+    .velog-post-excerpt {
+        font-size: 14px;
+        line-height: 1.4;
+    }
+}
+
+/* 추가 모바일 최적화 (작은 화면) */
+@media (max-width: 480px) {
+    .menu-bar {
+        height: 40px;
+        padding: 0 8px;
+        padding-left: max(8px, env(safe-area-inset-left) + 8px);
+        padding-right: max(8px, env(safe-area-inset-right) + 8px);
+    }
+    
+    .menu-item {
+        padding: 0 6px;
+        font-size: 11px;
+    }
+    
+    .time {
+        font-size: 10px;
+    }
+    
+    .control-center-panel {
+        width: 260px;
+        height: 350px;
+    }
+    
+    .dock {
+        padding: 2px 8px;
+        height: 60px;
+    }
+    
+    .dock-item {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .dock-item:hover {
+        transform: scale(1.05) translateY(-1px);
+        margin: 0 8px;
+    }
+    
+    .desktop-icons {
+        left: max(10px, env(safe-area-inset-left) + 10px);
+        top: max(50px, env(safe-area-inset-top) + 50px);
+        gap: 15px;
+    }
+    
+    .desktop-icon {
+        width: 80px;
+    }
+    
+    .icon-image {
+        width: 60px;
+        height: 60px;
+        font-size: 24px;
+    }
+}
+
+/* 터치 기기 최적화 */
+@media (hover: none) and (pointer: coarse) {
+    .dock-item:hover {
+        transform: none;
+        margin: 0 4px;
+    }
+    
+    .menu-item:hover,
+    .menu-icon:hover {
+        background: none;
+    }
+    
+    /* 터치 타겟 크기 늘리기 */
+    .window-control {
+        width: 18px;
+        height: 18px;
+        margin: 0 2px;
+    }
+    
+    .dock-item {
+        margin: 0 2px;
     }
 }
 
@@ -1492,10 +1677,14 @@ body.dark .cc-card:hover {
 
 /* Velog Style Posts */
 .velog-posts {
+    padding: 30px;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     gap: 24px;
-    padding: 20px 0;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch; /* iOS 모멘텀 스크롤 */
 }
 
 .velog-post-card {
@@ -1928,6 +2117,8 @@ body.dark .wifi-menu-panel {
     border-radius: 12px;
     max-height: 400px;
     overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch; /* iOS 모멘텀 스크롤 */
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
     border: 1px solid rgba(255, 255, 255, 0.2);
 }

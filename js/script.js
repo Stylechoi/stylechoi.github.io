@@ -558,6 +558,7 @@ function closeFolderModal(modalId, folderType) {
     if (modal) {
         modal.remove();
         activeFolderModals.delete(folderType);
+        modalResetFunctions.delete(modalId); // 리셋 함수도 정리
     }
 }
 
@@ -839,6 +840,11 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             openSearch();
         }
+        
+        // ESC 키로 모든 창 원래 위치로 되돌리기
+        if (e.key === 'Escape') {
+            resetAllModalsPosition();
+        }
     });
 
     const darkModeToggle = document.getElementById('darkModeToggle');
@@ -861,6 +867,24 @@ document.addEventListener('DOMContentLoaded', () => {
     let bluetoothState = false;
     let airdropState = true;
     let showWifiMenu = false;  // Wi-Fi 패널 표시 상태
+    
+    // AirDrop 상태 업데이트 함수
+    function updateAirdropState(isOn) {
+        airdropState = isOn;
+        
+        // 컨트롤센터 AirDrop 업데이트
+        if (airdropToggle) {
+            const subtitle = airdropToggle.closest('.cc-item').querySelector('.cc-subtitle');
+            
+            if (isOn) {
+                airdropToggle.classList.add('active');
+                subtitle.textContent = 'Contacts Only';
+            } else {
+                airdropToggle.classList.remove('active');
+                subtitle.textContent = 'Off';
+            }
+        }
+    }
     
     // Wi-Fi 상태 업데이트 함수 (메뉴바와 컨트롤센터 동기화)
     function updateWifiState(isOn) {
@@ -1085,6 +1109,7 @@ function goHome() {
 // 앱 모달 관리
 let appModalCounter = 0;
 const activeAppModals = new Map(); // appType -> modalId 매핑
+const modalResetFunctions = new Map(); // modalId -> resetFunction 매핑
 
 // 폴더 모달 관리
 let folderModalCounter = 0;
@@ -1108,16 +1133,16 @@ function openAppModal(appType) {
     appModalCounter++;
     const modalId = `appModal_${appType}_${appModalCounter}`;
     
-    // 창 위치를 다르게 설정 (cascade 효과)
-    const offsetX = 50 + (appModalCounter % 5) * 40;
-    const offsetY = 50 + (appModalCounter % 5) * 40;
-    
     const modal = document.createElement('div');
     modal.className = 'app-modal';
     modal.id = modalId;
     modal.style.position = 'fixed';
-    modal.style.top = `${offsetY}px`;
-    modal.style.left = `${offsetX}px`;
+    
+    // 중앙 기준으로 % 단위 사용 (cascade 효과를 위해 약간씩 오프셋)
+    const offsetPercent = (appModalCounter % 5) * 2; // 2%씩 오프셋
+    modal.style.top = `${50 + offsetPercent}%`;
+    modal.style.left = `${50 + offsetPercent}%`;
+    modal.style.transform = 'translate(-50%, -50%)';
     modal.style.zIndex = 2000 + appModalCounter;
     
     const appContent = getAppContent(appType);
@@ -1155,6 +1180,7 @@ function closeAppModal(modalId, appType) {
     if (modal) {
         modal.remove();
         activeAppModals.delete(appType);
+        modalResetFunctions.delete(modalId); // 리셋 함수도 정리
     }
 }
 
@@ -1356,6 +1382,24 @@ function makeModalDraggable(modal) {
     let initialY;
     let xOffset = 0;
     let yOffset = 0;
+    let clickCount = 0;
+    let clickTimer = null;
+
+    // 더블클릭 시 중앙으로 이동
+    header.addEventListener('dblclick', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        
+        // 더블클릭 시 중앙으로 이동
+        resetModalPosition();
+        return false;
+    });
+    
+    header.addEventListener('selectstart', (e) => {
+        e.preventDefault();
+        return false;
+    });
 
     header.addEventListener('mousedown', dragStart);
     document.addEventListener('mousemove', drag);
@@ -1367,6 +1411,10 @@ function makeModalDraggable(modal) {
             return;
         }
         
+        // 기본 동작 방지
+        e.preventDefault();
+        e.stopPropagation();
+        
         initialX = e.clientX - xOffset;
         initialY = e.clientY - yOffset;
 
@@ -1376,6 +1424,9 @@ function makeModalDraggable(modal) {
                 return;
             }
             isDragging = true;
+            // 드래그 시작할 때만 move 커서로 변경
+            header.style.cursor = 'move';
+            document.body.style.cursor = 'move';
         }
     }
 
@@ -1398,7 +1449,57 @@ function makeModalDraggable(modal) {
         initialX = currentX;
         initialY = currentY;
         isDragging = false;
+        
+        // 커서를 다시 기본값으로 되돌리기
+        header.style.cursor = 'default';
+        document.body.style.cursor = 'default';
+        
+        // 창이 화면 밖으로 나갔는지 체크
+        checkAndFixModalPosition();
     }
+    
+    function checkAndFixModalPosition() {
+        const modalRect = modal.getBoundingClientRect();
+        const screenWidth = window.innerWidth;
+        const screenHeight = window.innerHeight;
+        
+        // 창이 완전히 화면 밖으로 나갔거나 너무 많이 나간 경우
+        const isOutOfBounds = (
+            modalRect.right < 100 || // 왼쪽으로 너무 많이 나감
+            modalRect.left > screenWidth - 100 || // 오른쪽으로 너무 많이 나감
+            modalRect.bottom < 100 || // 위로 너무 많이 나감
+            modalRect.top > screenHeight - 100 // 아래로 너무 많이 나감
+        );
+        
+        if (isOutOfBounds) {
+            // 창을 안전한 위치(중앙)으로 되돌리기
+            resetModalPosition();
+        }
+    }
+    
+    function resetModalPosition() {
+        // 위치 초기화
+        xOffset = 0;
+        yOffset = 0;
+        currentX = 0;
+        currentY = 0;
+        initialX = 0;
+        initialY = 0;
+        
+        // 모든 위치 스타일 완전 초기화
+        modal.style.top = '50%';
+        modal.style.left = '50%';
+        modal.style.transform = 'translate(-50%, -50%)';
+        
+        // 부드러운 애니메이션 효과
+        modal.style.transition = 'all 0.3s ease';
+        setTimeout(() => {
+            modal.style.transition = '';
+        }, 300);
+    }
+    
+    // 이 모달의 리셋 함수를 전역에서 사용할 수 있도록 등록
+    modalResetFunctions.set(modal.id, resetModalPosition);
 }
 
 function bringModalToFront(modalId) {
@@ -1418,20 +1519,24 @@ function bringModalToFront(modalId) {
     }
 }
 
-// AirDrop 상태 업데이트 함수
-function updateAirdropState(isOn) {
-    airdropState = isOn;
-    
-    // 컨트롤센터 AirDrop 업데이트
-    if (airdropToggle) {
-        const subtitle = airdropToggle.closest('.cc-item').querySelector('.cc-subtitle');
-        
-        if (isOn) {
-            airdropToggle.classList.add('active');
-            subtitle.textContent = 'Contacts Only';
-        } else {
-            airdropToggle.classList.remove('active');
-            subtitle.textContent = 'Off';
+// 모든 모달을 원래 위치로 되돌리는 함수
+function resetAllModalsPosition() {
+    // 앱 모달들 되돌리기
+    activeAppModals.forEach((modalId) => {
+        const resetFunc = modalResetFunctions.get(modalId);
+        if (resetFunc) {
+            resetFunc();
         }
-    }
+    });
+    
+    // 폴더 모달들 되돌리기
+    activeFolderModals.forEach((modalId) => {
+        const resetFunc = modalResetFunctions.get(modalId);
+        if (resetFunc) {
+            resetFunc();
+        }
+    });
+    
+    // 검색창도 닫기
+    closeSearch();
 }
