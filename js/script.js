@@ -345,6 +345,36 @@ class MacInterface {
         postModalCounter++;
         const modalId = `postModal_${postModalCounter}`;
         
+        // 모든 활성 모달들의 최고 z-index 찾기
+        let maxZIndex = 9000;
+        
+        // 앱 모달들 확인
+        activeAppModals.forEach((id) => {
+            const modal = document.getElementById(id);
+            if (modal) {
+                const zIndex = parseInt(window.getComputedStyle(modal).zIndex) || 9000;
+                if (zIndex > maxZIndex) maxZIndex = zIndex;
+            }
+        });
+        
+        // 폴더 모달들 확인
+        activeFolderModals.forEach((id) => {
+            const modal = document.getElementById(id);
+            if (modal) {
+                const zIndex = parseInt(window.getComputedStyle(modal).zIndex) || 9000;
+                if (zIndex > maxZIndex) maxZIndex = zIndex;
+            }
+        });
+        
+        // 포스트 모달들 확인
+        activePostModals.forEach((title, id) => {
+            const modal = document.getElementById(id);
+            if (modal) {
+                const zIndex = parseInt(window.getComputedStyle(modal).zIndex) || 9000;
+                if (zIndex > maxZIndex) maxZIndex = zIndex;
+            }
+        });
+        
         // app-modal 스타일로 생성 (배경 블러 없음)
         const modal = document.createElement('div');
         modal.className = 'app-modal';
@@ -356,7 +386,9 @@ class MacInterface {
         modal.style.top = `${50 + offsetPercent}%`;
         modal.style.left = `${50 + offsetPercent}%`;
         modal.style.transform = 'translate(-50%, -50%)';
-        modal.style.zIndex = 9000 + postModalCounter;
+        
+        // 새 포스트 모달을 최상위로 설정
+        modal.style.zIndex = maxZIndex + 1;
         
         modal.innerHTML = `
             <div class="modal-window post-view-window" style="width: 900px; height: 700px; max-width: 95vw; max-height: 95vh;">
@@ -468,8 +500,8 @@ function openFolder(folderType) {
         const existingModalId = activeFolderModals.get(folderType);
         const existingModal = document.getElementById(existingModalId);
         if (existingModal) {
-            // 기존 창을 닫기
-            closeFolderModal(existingModalId, folderType);
+            // 기존 창을 앞으로 가져오기
+            bringAnyModalToFront(existingModalId);
             return;
         } else {
             // 창이 삭제되었으면 맵에서 제거
@@ -479,6 +511,36 @@ function openFolder(folderType) {
     
     folderModalCounter++;
     const modalId = `folderModal_${folderType}_${folderModalCounter}`;
+    
+    // 모든 활성 모달들의 최고 z-index 찾기
+    let maxZIndex = 9000;
+    
+    // 앱 모달들 확인
+    activeAppModals.forEach((id) => {
+        const modal = document.getElementById(id);
+        if (modal) {
+            const zIndex = parseInt(window.getComputedStyle(modal).zIndex) || 9000;
+            if (zIndex > maxZIndex) maxZIndex = zIndex;
+        }
+    });
+    
+    // 폴더 모달들 확인
+    activeFolderModals.forEach((id) => {
+        const modal = document.getElementById(id);
+        if (modal) {
+            const zIndex = parseInt(window.getComputedStyle(modal).zIndex) || 9000;
+            if (zIndex > maxZIndex) maxZIndex = zIndex;
+        }
+    });
+    
+    // 포스트 모달들 확인
+    activePostModals.forEach((title, id) => {
+        const modal = document.getElementById(id);
+        if (modal) {
+            const zIndex = parseInt(window.getComputedStyle(modal).zIndex) || 9000;
+            if (zIndex > maxZIndex) maxZIndex = zIndex;
+        }
+    });
     
     const modal = document.createElement('div');
     modal.className = 'app-modal';
@@ -498,7 +560,8 @@ function openFolder(folderType) {
         modal.style.transform = 'translate(-50%, -50%)';
     }
     
-    modal.style.zIndex = 9000 + folderModalCounter;
+    // 새 모달을 최상위로 설정
+    modal.style.zIndex = maxZIndex + 1;
     
     const folderTitle = folderType === 'daily' ? '일상vlog' : '기술vlog';
     
@@ -896,33 +959,73 @@ document.addEventListener('DOMContentLoaded', () => {
     // Wi-Fi 상태 업데이트 함수 (메뉴바와 컨트롤센터 동기화)
     function updateWifiState(isOn) {
         wifiState = isOn;
+        console.log('WiFi state changed to:', isOn);
         
         // 컨트롤센터 Wi-Fi 업데이트
         if (wifiToggle) {
             const subtitle = wifiToggle.closest('.cc-item').querySelector('.cc-subtitle');
-            const icon = wifiToggle.querySelector('.cc-icon');
+            const svgIcon = wifiToggle.querySelector('.cc-icon');
             
             if (isOn) {
                 wifiToggle.classList.add('active');
-                icon.classList.remove('wifi-off');
-                subtitle.textContent = 'Home';
+                if (svgIcon) {
+                    // 사선 제거
+                    const existingLine = svgIcon.querySelector('.wifi-off-line');
+                    if (existingLine) {
+                        existingLine.remove();
+                    }
+                    console.log('Removed wifi-off line from control center');
+                }
+                if (subtitle) subtitle.textContent = 'Home';
             } else {
                 wifiToggle.classList.remove('active');
-                icon.classList.add('wifi-off');
-                subtitle.textContent = 'Off';
+                if (svgIcon) {
+                    // 사선 추가
+                    const existingLine = svgIcon.querySelector('.wifi-off-line');
+                    if (!existingLine) {
+                        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                        line.setAttribute('x1', '2');
+                        line.setAttribute('y1', '18');
+                        line.setAttribute('x2', '18');
+                        line.setAttribute('y2', '2');
+                        line.setAttribute('stroke', '#FF3B30');
+                        line.setAttribute('stroke-width', '3');
+                        line.setAttribute('stroke-linecap', 'round');
+                        line.classList.add('wifi-off-line');
+                        svgIcon.appendChild(line);
+                        console.log('Added wifi-off line to control center');
+                    }
+                }
+                if (subtitle) subtitle.textContent = 'Off';
             }
         }
         
         // 메뉴바 Wi-Fi 아이콘 업데이트
-        const menubarWifiIcon = document.querySelector('#wifiIcon .wifi-icon');
-        const menubarWifiContainer = document.getElementById('wifiIcon');
-        if (menubarWifiIcon && menubarWifiContainer) {
+        const menubarSvgIcon = document.querySelector('#wifiIcon .wifi-icon');
+        if (menubarSvgIcon) {
             if (isOn) {
-                menubarWifiIcon.classList.remove('wifi-off');
-                menubarWifiContainer.classList.remove('wifi-off');
+                // 사선 제거
+                const existingLine = menubarSvgIcon.querySelector('.wifi-off-line');
+                if (existingLine) {
+                    existingLine.remove();
+                }
+                console.log('Removed wifi-off line from menubar');
             } else {
-                menubarWifiIcon.classList.add('wifi-off');
-                menubarWifiContainer.classList.add('wifi-off');
+                // 사선 추가
+                const existingLine = menubarSvgIcon.querySelector('.wifi-off-line');
+                if (!existingLine) {
+                    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    line.setAttribute('x1', '2');
+                    line.setAttribute('y1', '18');
+                    line.setAttribute('x2', '18');
+                    line.setAttribute('y2', '2');
+                    line.setAttribute('stroke', '#FF3B30');
+                    line.setAttribute('stroke-width', '2.5');
+                    line.setAttribute('stroke-linecap', 'round');
+                    line.classList.add('wifi-off-line');
+                    menubarSvgIcon.appendChild(line);
+                    console.log('Added wifi-off line to menubar');
+                }
             }
         }
         
@@ -1138,8 +1241,8 @@ function openAppModal(appType) {
         const existingModalId = activeAppModals.get(appType);
         const existingModal = document.getElementById(existingModalId);
         if (existingModal) {
-            // 기존 창을 닫기
-            closeAppModal(existingModalId, appType);
+            // 기존 창을 앞으로 가져오기
+            bringAnyModalToFront(existingModalId);
             return;
         } else {
             // 창이 삭제되었으면 맵에서 제거
@@ -1149,6 +1252,36 @@ function openAppModal(appType) {
     
     appModalCounter++;
     const modalId = `appModal_${appType}_${appModalCounter}`;
+    
+    // 모든 활성 모달들의 최고 z-index 찾기
+    let maxZIndex = 9000;
+    
+    // 앱 모달들 확인
+    activeAppModals.forEach((id) => {
+        const modal = document.getElementById(id);
+        if (modal) {
+            const zIndex = parseInt(window.getComputedStyle(modal).zIndex) || 9000;
+            if (zIndex > maxZIndex) maxZIndex = zIndex;
+        }
+    });
+    
+    // 폴더 모달들 확인
+    activeFolderModals.forEach((id) => {
+        const modal = document.getElementById(id);
+        if (modal) {
+            const zIndex = parseInt(window.getComputedStyle(modal).zIndex) || 9000;
+            if (zIndex > maxZIndex) maxZIndex = zIndex;
+        }
+    });
+    
+    // 포스트 모달들 확인
+    activePostModals.forEach((title, id) => {
+        const modal = document.getElementById(id);
+        if (modal) {
+            const zIndex = parseInt(window.getComputedStyle(modal).zIndex) || 9000;
+            if (zIndex > maxZIndex) maxZIndex = zIndex;
+        }
+    });
     
     const modal = document.createElement('div');
     modal.className = 'app-modal';
@@ -1160,7 +1293,9 @@ function openAppModal(appType) {
     modal.style.top = `${50 + offsetPercent}%`;
     modal.style.left = `${50 + offsetPercent}%`;
     modal.style.transform = 'translate(-50%, -50%)';
-    modal.style.zIndex = 9000 + appModalCounter;
+    
+    // 새 앱 모달을 최상위로 설정
+    modal.style.zIndex = maxZIndex + 1;
     
     const appContent = getAppContent(appType);
     
