@@ -1363,54 +1363,85 @@ body {
 /* Responsive Design */
 @media (max-width: 768px) {
     .menu-bar {
-        padding: 0 12px;
-        height: 36px; /* 모바일에서 조금 더 높게 */
-        padding-left: max(12px, env(safe-area-inset-left) + 12px);
-        padding-right: max(12px, env(safe-area-inset-right) + 12px);
+        padding: 0 8px;
+        height: 36px;
+        padding-left: max(8px, env(safe-area-inset-left) + 8px);
+        padding-right: max(8px, env(safe-area-inset-right) + 8px);
+        justify-content: space-between;
+        align-items: center;
     }
     
-    .menu-item {
-        padding: 0 8px;
+    /* 모바일에서 불필요한 메뉴 항목들 숨기기 */
+    .menu-left .menu-item {
+        display: none;
+    }
+    
+    /* 애플 로고만 유지 */
+    .menu-left .apple-menu {
+        display: flex;
+    }
+    
+    /* 우측 메뉴에서 필요한 것만 유지 */
+    .menu-right {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        margin-right: 0;
+    }
+    
+    /* 컨트롤 센터, Wi-Fi, 시간만 표시 */
+    .menu-right .menu-icon {
+        padding: 0 6px;
         font-size: 12px;
     }
     
     .control-center-panel {
         width: 280px;
-        right: 12px;
-        right: max(12px, env(safe-area-inset-right) + 12px);
+        right: 8px;
+        right: max(8px, env(safe-area-inset-right) + 8px);
     }
     
+    /* 폴더 아이콘을 모바일에서 살짝 줄이기 */
     .desktop-icons {
-        left: 15px;
-        top: 40px;
-        gap: 20px;
-        left: max(15px, env(safe-area-inset-left) + 15px);
-        top: max(40px, env(safe-area-inset-top) + 40px);
+        left: 12px;
+        top: 45px;
+        gap: 18px;
+        left: max(12px, env(safe-area-inset-left) + 12px);
+        top: max(45px, env(safe-area-inset-top) + 45px);
     }
 
     .desktop-icon {
-        width: 90px;
+        width: 85px;
     }
 
     .icon-image {
-        width: 70px;
-        height: 70px;
-        font-size: 30px;
+        width: 75px;
+        height: 75px;
+        font-size: 28px;
+        border-radius: 14px;
     }
 
+    .icon-name {
+        font-size: 11px;
+        max-width: 75px;
+    }
+
+    /* Dock을 모바일에서 크게 만들어 균형 맞추기 */
     .dock {
-        padding: 4px 12px;
-        height: 70px; /* 모바일에서 조금 낮게 */
+        padding: 8px 16px;
+        height: 80px;
+        border-radius: 20px;
     }
 
     .dock-item {
-        width: 48px;
-        height: 48px;
+        width: 58px;
+        height: 58px;
+        margin: 0 6px;
     }
 
     .dock-item:hover {
-        margin: 0 12px;
-        transform: scale(1.1) translateY(-2px);
+        margin: 0 10px;
+        transform: scale(1.15) translateY(-3px);
     }
 
     .modal {
@@ -1438,16 +1469,17 @@ body {
     
     .time {
         flex-direction: column;
-        gap: 2px;
-        font-size: 11px;
+        gap: 1px;
+        font-size: 10px;
+        padding: 0 6px;
     }
     
     .time-date {
-        font-size: 10px;
+        font-size: 9px;
     }
     
     .time-clock {
-        font-size: 11px;
+        font-size: 10px;
     }
     
     /* App 모달도 모바일 최적화 */

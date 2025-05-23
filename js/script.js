@@ -356,7 +356,7 @@ class MacInterface {
         modal.style.top = `${50 + offsetPercent}%`;
         modal.style.left = `${50 + offsetPercent}%`;
         modal.style.transform = 'translate(-50%, -50%)';
-        modal.style.zIndex = 2000 + postModalCounter;
+        modal.style.zIndex = 9000 + postModalCounter;
         
         modal.innerHTML = `
             <div class="modal-window post-view-window" style="width: 900px; height: 700px; max-width: 95vw; max-height: 95vh;">
@@ -388,10 +388,20 @@ class MacInterface {
         // 모달 드래그 가능하게 만들기
         makeModalDraggable(modal);
         
-        // 클릭시 앞으로 가져오기
-        modal.addEventListener('click', () => {
-            bringPostModalToFront(modalId);
+        // 클릭시 앞으로 가져오기 (모달 전체와 헤더 모두)
+        modal.addEventListener('click', (e) => {
+            bringAnyModalToFront(modalId);
         });
+        
+        const header = modal.querySelector('.modal-header');
+        if (header) {
+            header.addEventListener('click', (e) => {
+                // 버튼 클릭이 아닌 경우에만 앞으로 가져오기
+                if (!e.target.classList.contains('window-control')) {
+                    bringAnyModalToFront(modalId);
+                }
+            });
+        }
     }
 
     markdownToHtml(markdown) {
@@ -484,11 +494,11 @@ function openFolder(folderType) {
     } else if (folderType === 'tech') {
         // 기술vlog: 중앙 오른쪽
         modal.style.top = '50%';
-        modal.style.left = '70%';
+        modal.style.left = '60%';
         modal.style.transform = 'translate(-50%, -50%)';
     }
     
-    modal.style.zIndex = 2000 + folderModalCounter;
+    modal.style.zIndex = 9000 + folderModalCounter;
     
     const folderTitle = folderType === 'daily' ? '일상vlog' : '기술vlog';
     
@@ -526,16 +536,26 @@ function openFolder(folderType) {
     } else {
         modal.dataset.originalTransform = 'translate(-50%, -50%)';
         modal.dataset.originalTop = '50%';
-        modal.dataset.originalLeft = '70%';
+        modal.dataset.originalLeft = '60%';
     }
     
     // 모달 드래그 가능하게 만들기
     makeModalDraggable(modal);
     
-    // 클릭시 앞으로 가져오기
-    modal.addEventListener('click', () => {
-        bringFolderModalToFront(modalId);
+    // 클릭시 앞으로 가져오기 (모달 전체와 헤더 모두)
+    modal.addEventListener('click', (e) => {
+        bringAnyModalToFront(modalId);
     });
+    
+    const header = modal.querySelector('.modal-header');
+    if (header) {
+        header.addEventListener('click', (e) => {
+            // 버튼 클릭이 아닌 경우에만 앞으로 가져오기
+            if (!e.target.classList.contains('window-control')) {
+                bringAnyModalToFront(modalId);
+            }
+        });
+    }
     
     // 블로그 콘텐츠 로드
     loadVelogPostsForModal(folderType, `${modalId}_content`);
@@ -1140,7 +1160,7 @@ function openAppModal(appType) {
     modal.style.top = `${50 + offsetPercent}%`;
     modal.style.left = `${50 + offsetPercent}%`;
     modal.style.transform = 'translate(-50%, -50%)';
-    modal.style.zIndex = 2000 + appModalCounter;
+    modal.style.zIndex = 9000 + appModalCounter;
     
     const appContent = getAppContent(appType);
     
@@ -1166,10 +1186,20 @@ function openAppModal(appType) {
     // 모달 드래그 가능하게 만들기
     makeModalDraggable(modal);
     
-    // 클릭시 앞으로 가져오기
-    modal.addEventListener('click', () => {
-        bringModalToFront(modalId);
+    // 클릭시 앞으로 가져오기 (모달 전체와 헤더 모두)
+    modal.addEventListener('click', (e) => {
+        bringAnyModalToFront(modalId);
     });
+    
+    const header = modal.querySelector('.modal-header');
+    if (header) {
+        header.addEventListener('click', (e) => {
+            // 버튼 클릭이 아닌 경우에만 앞으로 가져오기
+            if (!e.target.classList.contains('window-control')) {
+                bringAnyModalToFront(modalId);
+            }
+        });
+    }
 }
 
 function closeAppModal(modalId, appType) {
@@ -1544,4 +1574,55 @@ function resetAllModalsPosition() {
     
     // 검색창도 닫기
     closeSearch();
+}
+
+// 통합 모달 최상위 가져오기 함수
+function bringAnyModalToFront(modalId) {
+    const modal = document.getElementById(modalId);
+    if (!modal) return;
+    
+    // 모든 활성 모달들의 z-index 찾기
+    let maxZIndex = 9000; // 기본 최소값을 높게 설정
+    
+    // 앱 모달들 확인
+    activeAppModals.forEach((id) => {
+        const otherModal = document.getElementById(id);
+        if (otherModal && otherModal !== modal) {
+            const zIndex = parseInt(window.getComputedStyle(otherModal).zIndex) || 9000;
+            if (zIndex > maxZIndex) maxZIndex = zIndex;
+        }
+    });
+    
+    // 폴더 모달들 확인
+    activeFolderModals.forEach((id) => {
+        const otherModal = document.getElementById(id);
+        if (otherModal && otherModal !== modal) {
+            const zIndex = parseInt(window.getComputedStyle(otherModal).zIndex) || 9000;
+            if (zIndex > maxZIndex) maxZIndex = zIndex;
+        }
+    });
+    
+    // 포스트 모달들 확인
+    activePostModals.forEach((title, id) => {
+        const otherModal = document.getElementById(id);
+        if (otherModal && otherModal !== modal) {
+            const zIndex = parseInt(window.getComputedStyle(otherModal).zIndex) || 9000;
+            if (zIndex > maxZIndex) maxZIndex = zIndex;
+        }
+    });
+    
+    // 현재 모달을 최상위로 설정
+    modal.style.zIndex = maxZIndex + 1;
+}
+
+function bringPostModalToFront(modalId) {
+    bringAnyModalToFront(modalId);
+}
+
+function bringFolderModalToFront(modalId) {
+    bringAnyModalToFront(modalId);
+}
+
+function bringModalToFront(modalId) {
+    bringAnyModalToFront(modalId);
 }
