@@ -294,17 +294,22 @@ class MacInterface {
         // 간단한 날짜 형식 (예: 2024.05.23)
         const simpleDate = post.date.replace(/-/g, '.');
         
-        // 카테고리에 따른 해시태그
-        const hashtag = folderType === 'tech' ? '#tech' : '#daily';
+        // 실제 태그들을 해시태그로 변환
+        const hashtags = post.tags ? post.tags.map(tag => `#${tag}`).join(' ') : `#${folderType}`;
+        
+        // 이미지 처리 - 실제 이미지가 있으면 사용, 없으면 기본 아이콘
+        const imageContent = post.image ? 
+            `<img src="${post.image}" alt="${post.title}" style="width: 100%; height: 100%; object-fit: cover;">` :
+            this.getPostThumbnailIcon(folderType);
         
         postCard.innerHTML = `
             <div class="velog-post-image ${folderType}">
-                ${this.getPostThumbnailIcon(folderType)}
+                ${imageContent}
             </div>
             <div class="velog-post-info">
                 <div class="velog-post-date">${simpleDate}</div>
                 <div class="velog-post-title">${post.title}</div>
-                <div class="velog-post-hashtag">${hashtag}</div>
+                <div class="velog-post-hashtag">${hashtags}</div>
             </div>
         `;
         
