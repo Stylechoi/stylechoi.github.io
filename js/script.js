@@ -441,15 +441,6 @@ class MacInterface {
         });
     }
 
-    closePostModal(modalId) {
-        const modal = document.getElementById(modalId);
-        if (modal) {
-            modal.remove();
-            activePostModals.delete(modalId);
-            modalResetFunctions.delete(modalId); // 리셋 함수도 정리
-        }
-    }
-
     markdownToHtml(markdown) {
         // Simple markdown to HTML conversion
         let html = markdown
@@ -480,6 +471,34 @@ class MacInterface {
 }
 
 // Global functions for HTML onclick events
+
+// Post modal management functions
+function closePostModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.remove();
+        activePostModals.delete(modalId);
+        modalResetFunctions.delete(modalId); // 리셋 함수도 정리
+    }
+}
+
+function bringPostModalToFront(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        // 가장 높은 z-index 찾기
+        let maxZIndex = 2000;
+        activePostModals.forEach((title, id) => {
+            const otherModal = document.getElementById(id);
+            if (otherModal && otherModal !== modal) {
+                const zIndex = parseInt(window.getComputedStyle(otherModal).zIndex) || 2000;
+                if (zIndex > maxZIndex) maxZIndex = zIndex;
+            }
+        });
+        
+        modal.style.zIndex = maxZIndex + 1;
+    }
+}
+
 function openFolder(folderType) {
     // 이미 열린 창이 있는지 확인
     if (activeFolderModals.has(folderType)) {
