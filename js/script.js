@@ -291,17 +291,20 @@ class MacInterface {
         postCard.className = 'velog-post-card';
         postCard.onclick = () => this.openPostModal(post);
         
-        // JSON 데이터의 date 필드를 직접 사용 (이미 포맷된 상태)
-        const formattedDate = this.formatDate(post.date);
+        // 간단한 날짜 형식 (예: 2024.05.23)
+        const simpleDate = post.date.replace(/-/g, '.');
+        
+        // 카테고리에 따른 해시태그
+        const hashtag = folderType === 'tech' ? '#tech' : '#daily';
         
         postCard.innerHTML = `
             <div class="velog-post-image ${folderType}">
                 ${this.getPostThumbnailIcon(folderType)}
             </div>
-            <div class="velog-post-content">
+            <div class="velog-post-info">
+                <div class="velog-post-date">${simpleDate}</div>
                 <div class="velog-post-title">${post.title}</div>
-                <div class="velog-post-date">${formattedDate}</div>
-                <div class="velog-post-excerpt">${post.description || post.excerpt}</div>
+                <div class="velog-post-hashtag">${hashtag}</div>
             </div>
         `;
         

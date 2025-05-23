@@ -1532,34 +1532,30 @@ body.dark .cc-card:hover {
     
     /* Velog 포스트 모바일 최적화 */
     .velog-posts {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
         padding: 20px;
-        gap: 16px;
-        grid-template-columns: 1fr;
     }
     
     .velog-post-card {
-        padding: 16px;
-        margin-bottom: 16px;
+        height: 300px;
     }
     
     .velog-post-image {
-        height: 120px;
-        margin-bottom: 12px;
+        height: 160px;
     }
     
     .velog-post-title {
         font-size: 16px;
-        margin-bottom: 8px;
+        -webkit-line-clamp: 3;
     }
     
     .velog-post-date {
         font-size: 12px;
-        margin-bottom: 8px;
     }
     
-    .velog-post-excerpt {
-        font-size: 14px;
-        line-height: 1.4;
+    .velog-post-hashtag {
+        font-size: 12px;
     }
 }
 
@@ -1677,111 +1673,113 @@ body.dark .cc-card:hover {
 
 /* Velog Style Posts */
 .velog-posts {
-    padding: 30px;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 24px;
-    height: 100%;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    max-height: calc(100vh - 200px);
     overflow-y: auto;
-    overflow-x: hidden;
-    -webkit-overflow-scrolling: touch; /* iOS 모멘텀 스크롤 */
 }
 
 .velog-post-card {
     background: rgba(255, 255, 255, 0.95);
-    border-radius: 12px;
+    border-radius: 16px;
     overflow: hidden;
     cursor: pointer;
     transition: all 0.3s ease;
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    height: 300px;
+    display: flex;
+    flex-direction: column;
 }
 
 .velog-post-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
 }
 
 .velog-post-image {
     width: 100%;
-    height: 200px;
+    height: 160px;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 48px;
     position: relative;
-    overflow: hidden;
 }
 
 .velog-post-image.tech {
-    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
 .velog-post-image.daily {
-    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+    background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
 }
 
-.velog-post-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.velog-post-image svg {
+    opacity: 0.8;
 }
 
-.velog-post-content {
+.velog-post-info {
     padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.velog-post-date {
+    font-size: 12px;
+    color: #007AFF;
+    font-weight: 600;
+    margin-bottom: 8px;
 }
 
 .velog-post-title {
     font-size: 16px;
     font-weight: 600;
-    color: #343a40;
-    margin-bottom: 12px;
+    color: #1d1d1f;
     line-height: 1.4;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-.velog-post-date {
-    font-size: 14px;
-    color: #868e96;
-    margin-bottom: 8px;
-}
-
-.velog-post-excerpt {
-    font-size: 14px;
-    color: #495057;
-    line-height: 1.5;
+    margin-bottom: auto;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
 
+.velog-post-hashtag {
+    font-size: 12px;
+    color: #666;
+    font-weight: 500;
+    margin-top: 12px;
+    opacity: 0.8;
+}
+
 /* Empty state for velog posts */
 .velog-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
     text-align: center;
-    padding: 80px 20px;
-    color: #868e96;
-    grid-column: 1 / -1;
 }
 
 .velog-empty-icon {
-    font-size: 64px;
+    font-size: 48px;
     margin-bottom: 16px;
 }
 
 .velog-empty-title {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 600;
+    color: #333;
     margin-bottom: 8px;
-    color: #495057;
 }
 
 .velog-empty-subtitle {
-    font-size: 16px;
+    color: #666;
 }
 
 .menu-title {
