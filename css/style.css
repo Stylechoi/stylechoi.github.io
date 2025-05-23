@@ -1735,15 +1735,15 @@ body.dark .cc-card:hover {
     color: white;
 }
 
-/* AirDrop 초기 활성화 */
-#airdropToggle {
+/* AirDrop 초기 활성화 - 제거 */
+/* #airdropToggle {
     background: #007AFF;
     color: white;
 }
 
 #airdropToggle .cc-icon {
     color: white;
-}
+} */
 
 /* Wi-Fi Menu Panel */
 .wifi-menu-panel {

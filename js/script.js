@@ -1008,16 +1008,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (airdropToggle) {
         airdropToggle.addEventListener('click', function(event) {
             event.stopPropagation(); // 이벤트 버블링 방지
-            airdropState = !airdropState;
-            const subtitle = airdropToggle.closest('.cc-item').querySelector('.cc-subtitle');
-            
-            if (airdropState) {
-                airdropToggle.classList.add('active');
-                subtitle.textContent = 'Contacts Only';
-            } else {
-                airdropToggle.classList.remove('active');
-                subtitle.textContent = 'Off';
-            }
+            updateAirdropState(!airdropState);
         });
     }
     
@@ -1058,6 +1049,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // 초기 상태 설정
     updateDarkMode(false);
+    updateAirdropState(true); // AirDrop 초기 활성화
 });
 
 // 홈으로 돌아가는 함수
@@ -1423,5 +1415,23 @@ function bringModalToFront(modalId) {
         });
         
         modal.style.zIndex = maxZIndex + 1;
+    }
+}
+
+// AirDrop 상태 업데이트 함수
+function updateAirdropState(isOn) {
+    airdropState = isOn;
+    
+    // 컨트롤센터 AirDrop 업데이트
+    if (airdropToggle) {
+        const subtitle = airdropToggle.closest('.cc-item').querySelector('.cc-subtitle');
+        
+        if (isOn) {
+            airdropToggle.classList.add('active');
+            subtitle.textContent = 'Contacts Only';
+        } else {
+            airdropToggle.classList.remove('active');
+            subtitle.textContent = 'Off';
+        }
     }
 }
