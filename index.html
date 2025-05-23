@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StyleChoi Blog - macOS Style</title>
+    <title>CHOI BLOG</title>
+    <link rel="icon" type="image/svg+xml" href="image/blog-favicon.svg">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -22,18 +23,12 @@
         <!-- Enhanced Menu Bar -->
         <div class="menu-bar">
             <div class="menu-left">
-                <div class="apple-menu" id="appleMenu">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <div class="apple-menu" id="appleMenu" onclick="goHome()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
                     </svg>
                 </div>
-                <div class="menu-item active">StyleChoi Blog</div>
-                <div class="menu-item">파일</div>
-                <div class="menu-item">편집</div>
-                <div class="menu-item">보기</div>
-                <div class="menu-item">이동</div>
-                <div class="menu-item">윈도우</div>
-                <div class="menu-item">도움말</div>
+                <div class="menu-title">My blog</div>
             </div>
             
             <div class="menu-right">
@@ -52,12 +47,32 @@
                 
                 <!-- WiFi Indicator -->
                 <div class="menu-icon wifi-container" id="wifiIcon">
-                    <i data-lucide="wifi" class="icon wifi-icon"></i>
+                    <svg class="icon wifi-icon" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <circle cx="10" cy="16" r="1.5" fill="currentColor"/>
+                        <path d="M5 12.5C7 10.5 8.5 10.5 10 10.5s3 0 5 2"/>
+                        <path d="M2 9C5 6 7.5 6 10 6s5 0 8 3"/>
+                    </svg>
+                </div>
+                
+                <!-- Wi-Fi Menu Panel -->
+                <div class="wifi-menu-panel" id="wifiMenuPanel">
+                    <div class="wifi-menu-content">
+                        <div class="wifi-menu-title">Wi-Fi</div>
+                        <div class="wifi-menu-toggle">
+                            <label class="wifi-switch">
+                                <input type="checkbox" id="wifiToggleSwitch" checked>
+                                <span class="wifi-slider"></span>
+                            </label>
+                        </div>
+                    </div>
                 </div>
                 
                 <!-- Spotlight Search -->
                 <div class="menu-icon" id="spotlightIcon">
-                    <i data-lucide="search" class="icon"></i>
+                    <svg class="icon search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="m21 21-4.35-4.35"/>
+                    </svg>
                 </div>
                 
                 <!-- Control Center -->
@@ -77,40 +92,133 @@
 
         <!-- Control Center Panel -->
         <div class="control-center-panel" id="controlCenterPanel">
-            <div class="control-panel">
-                <div class="control-section">
-                    <h3>음악</h3>
-                    <div class="music-controls">
-                        <div class="music-info">
-                            <div class="album-art" id="albumArt">
-                                <img src="https://p1.music.126.net/z0IO1vEsowL9mD_5yzUjeA==/109951163936068098.jpg" alt="Album Cover">
-                            </div>
-                            <div class="track-info">
-                                <div class="track-title">Sunflower</div>
-                                <div class="track-artist">Post Malone, Swae Lee</div>
-                            </div>
+            <div class="control-grid">
+                <!-- 네트워크 연결 카드 (2x2) -->
+                <div class="cc-card cc-card-network">
+                    <!-- Wi-Fi -->
+                    <div class="cc-item">
+                        <div class="cc-toggle active" id="wifiToggle">
+                            <svg class="cc-icon" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <circle cx="10" cy="16" r="1.5" fill="currentColor"/>
+                                <path d="M5 12.5C7 10.5 8.5 10.5 10 10.5s3 0 5 2"/>
+                                <path d="M2 9C5 6 7.5 6 10 6s5 0 8 3"/>
+                            </svg>
                         </div>
-                        <div class="player-controls">
-                            <button class="control-btn" id="playPauseBtn">
-                                <i data-lucide="play" class="play-icon"></i>
-                                <i data-lucide="pause" class="pause-icon" style="display: none;"></i>
-                            </button>
+                        <div class="cc-info">
+                            <div class="cc-title">Wi-Fi</div>
+                            <div class="cc-subtitle">Home</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Bluetooth -->
+                    <div class="cc-item">
+                        <div class="cc-toggle" id="bluetoothToggle">
+                            <svg class="cc-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M6.5 6.5L17.5 17.5L12 23L12 1L17.5 6.5L6.5 17.5"/>
+                            </svg>
+                        </div>
+                        <div class="cc-info">
+                            <div class="cc-title">Bluetooth</div>
+                            <div class="cc-subtitle">Off</div>
+                        </div>
+                    </div>
+                    
+                    <!-- AirDrop -->
+                    <div class="cc-item">
+                        <div class="cc-toggle active" id="airdropToggle">
+                            <svg class="cc-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="1"/>
+                                <circle cx="12" cy="12" r="4"/>
+                                <circle cx="12" cy="12" r="7"/>
+                                <circle cx="12" cy="12" r="10"/>
+                            </svg>
+                        </div>
+                        <div class="cc-info">
+                            <div class="cc-title">AirDrop</div>
+                            <div class="cc-subtitle">Contacts Only</div>
                         </div>
                     </div>
                 </div>
                 
-                <div class="control-section">
-                    <h3>시스템</h3>
-                    <div class="system-controls">
-                        <div class="control-row">
-                            <span>볼륨</span>
-                            <input type="range" class="slider" id="volumeSlider" min="0" max="100" value="50">
-                        </div>
-                        <div class="control-row">
-                            <span>밝기</span>
-                            <input type="range" class="slider" id="brightnessSlider" min="10" max="100" value="80">
-                        </div>
+                <!-- Dark Mode 카드 (2x1) -->
+                <div class="cc-card cc-card-wide" id="darkModeCard">
+                    <div class="cc-toggle" id="darkModeToggle">
+                        <svg class="cc-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="darkModeIcon">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                        </svg>
                     </div>
+                    <div class="cc-info">
+                        <div class="cc-title" id="darkModeTitle">Dark Mode</div>
+                    </div>
+                </div>
+                
+                <!-- Keyboard Brightness (1x1) -->
+                <div class="cc-card cc-card-small">
+                    <svg class="cc-icon-small" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"/>
+                        <path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                    </svg>
+                    <div class="cc-small-text">Keyboard<br>Brightness</div>
+                </div>
+                
+                <!-- Fullscreen (1x1) -->
+                <div class="cc-card cc-card-small" id="fullscreenCard">
+                    <svg class="cc-icon-small" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="fullscreenIcon">
+                        <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+                    </svg>
+                    <div class="cc-small-text" id="fullscreenText">Enter<br>Fullscreen</div>
+                </div>
+                
+                <!-- Display 슬라이더 (4x1) -->
+                <div class="cc-card cc-card-slider">
+                    <div class="cc-slider-header">
+                        <span class="cc-slider-title">Display</span>
+                    </div>
+                    <div class="cc-slider-container">
+                        <div class="cc-slider-icon">
+                            <svg class="cc-icon-slider" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="5"/>
+                                <path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                            </svg>
+                        </div>
+                        <input type="range" class="cc-slider" id="brightnessSlider" min="10" max="100" value="80">
+                    </div>
+                </div>
+                
+                <!-- Sound 슬라이더 (4x1) -->
+                <div class="cc-card cc-card-slider">
+                    <div class="cc-slider-header">
+                        <span class="cc-slider-title">Sound</span>
+                    </div>
+                    <div class="cc-slider-container">
+                        <div class="cc-slider-icon">
+                            <svg class="cc-icon-slider" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19"/>
+                                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>
+                            </svg>
+                        </div>
+                        <input type="range" class="cc-slider" id="volumeSlider" min="0" max="100" value="50">
+                    </div>
+                </div>
+                
+                <!-- Music Player (4x1) -->
+                <div class="cc-card cc-card-music">
+                    <div class="cc-music-cover">
+                        <img src="https://p1.music.126.net/z0IO1vEsowL9mD_5yzUjeA==/109951163936068098.jpg" alt="Album Cover">
+                    </div>
+                    <div class="cc-music-info">
+                        <div class="cc-music-title">Sunflower</div>
+                        <div class="cc-music-artist">Post Malone / Swae Lee</div>
+                    </div>
+                    <button class="cc-music-play" id="playPauseBtn">
+                        <svg class="play-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="5 3 19 12 5 21"/>
+                        </svg>
+                        <svg class="pause-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
+                            <rect x="6" y="4" width="4" height="16"/>
+                            <rect x="14" y="4" width="4" height="16"/>
+                        </svg>
+                    </button>
                 </div>
             </div>
         </div>
@@ -118,44 +226,14 @@
         <!-- Desktop Icons -->
         <div class="desktop-icons">
             <div class="desktop-icon" onclick="openFolder('daily')" data-folder="daily">
-                <div class="icon-image folder">
-                    <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <defs>
-                            <linearGradient id="folderGradient1" x1="0%" y1="0%" x2="0%" y2="100%">
-                                <stop offset="0%" style="stop-color:#4A9EFF;stop-opacity:1" />
-                                <stop offset="50%" style="stop-color:#1D7CE8;stop-opacity:1" />
-                                <stop offset="100%" style="stop-color:#0A5BC4;stop-opacity:1" />
-                            </linearGradient>
-                            <linearGradient id="folderGradient2" x1="0%" y1="0%" x2="0%" y2="100%">
-                                <stop offset="0%" style="stop-color:#6BB6FF;stop-opacity:1" />
-                                <stop offset="100%" style="stop-color:#4A9EFF;stop-opacity:1" />
-                            </linearGradient>
-                        </defs>
-                        <path d="M10 30 C10 25 13 22 18 22 L62 22 C67 22 70 25 70 30 L70 60 C70 65 67 68 62 68 L18 68 C13 68 10 65 10 60 Z" fill="url(#folderGradient1)"/>
-                        <path d="M10 22 C10 20 11 19 13 19 L35 19 C36 19 37 20 38 21 L40 22 L62 22 C67 22 70 25 70 30 L70 32 L10 32 Z" fill="url(#folderGradient2)"/>
-                        <path d="M10 30 C10 25 13 22 18 22 L62 22 C67 22 70 25 70 30 L70 32 L10 32 Z" fill="rgba(255,255,255,0.2)"/>
-                    </svg>
+                <div class="icon-image folder-img">
+                    <img src="image/macpolder.png" alt="일상vlog 폴더">
                 </div>
                 <div class="icon-name">일상vlog</div>
             </div>
             <div class="desktop-icon" onclick="openFolder('tech')" data-folder="tech">
-                <div class="icon-image folder">
-                    <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <defs>
-                            <linearGradient id="folderGradient3" x1="0%" y1="0%" x2="0%" y2="100%">
-                                <stop offset="0%" style="stop-color:#FF9F0A;stop-opacity:1" />
-                                <stop offset="50%" style="stop-color:#FF8C00;stop-opacity:1" />
-                                <stop offset="100%" style="stop-color:#E6750A;stop-opacity:1" />
-                            </linearGradient>
-                            <linearGradient id="folderGradient4" x1="0%" y1="0%" x2="0%" y2="100%">
-                                <stop offset="0%" style="stop-color:#FFB340;stop-opacity:1" />
-                                <stop offset="100%" style="stop-color:#FF9F0A;stop-opacity:1" />
-                            </linearGradient>
-                        </defs>
-                        <path d="M10 30 C10 25 13 22 18 22 L62 22 C67 22 70 25 70 30 L70 60 C70 65 67 68 62 68 L18 68 C13 68 10 65 10 60 Z" fill="url(#folderGradient3)"/>
-                        <path d="M10 22 C10 20 11 19 13 19 L35 19 C36 19 37 20 38 21 L40 22 L62 22 C67 22 70 25 70 30 L70 32 L10 32 Z" fill="url(#folderGradient4)"/>
-                        <path d="M10 30 C10 25 13 22 18 22 L62 22 C67 22 70 25 70 30 L70 32 L10 32 Z" fill="rgba(255,255,255,0.2)"/>
-                    </svg>
+                <div class="icon-image folder-img">
+                    <img src="image/macpolder.png" alt="기술vlog 폴더">
                 </div>
                 <div class="icon-name">기술vlog</div>
             </div>
@@ -164,22 +242,22 @@
         <!-- Enhanced Dock -->
         <div class="dock-container">
             <div class="dock">
-                <div class="dock-item" data-tooltip="About me">
+                <div class="dock-item" data-tooltip="About me" onclick="openAppModal('aboutme')">
                     <div class="icon">
                         <img src="https://uploads-ssl.webflow.com/5f7081c044fb7b3321ac260e/5f70853981255cc36b3a37af_finder.png" alt="Finder">
                     </div>
                 </div>
-                <div class="dock-item" data-tooltip="My project">
+                <div class="dock-item" data-tooltip="My project" onclick="openAppModal('project')">
                     <div class="icon">
                         <img src="https://uploads-ssl.webflow.com/5f7081c044fb7b3321ac260e/5f70853943597517f128b9b4_launchpad.png" alt="Launchpad">
                     </div>
                 </div>
-                <div class="dock-item" data-tooltip="My potfolio">
+                <div class="dock-item" data-tooltip="My portfolio" onclick="openAppModal('portfolio')">
                     <div class="icon">
                         <img src="https://uploads-ssl.webflow.com/5f7081c044fb7b3321ac260e/5f70853ddd826358438eda6d_safari.png" alt="Safari">
                     </div>
                 </div>
-                <div class="dock-item" data-tooltip="Read me">
+                <div class="dock-item" data-tooltip="Read me" onclick="openAppModal('memo')">
                     <div class="icon">
                         <img src="https://uploads-ssl.webflow.com/5f7081c044fb7b3321ac260e/5f70853c849ec3735b52cef9_notes.png" alt="Terminal">
                     </div>
@@ -232,12 +310,36 @@
         </div>
     </div>
 
+    <!-- Search Modal -->
+    <div class="search-modal" id="searchModal">
+        <div class="search-container">
+            <div class="search-box">
+                <svg class="search-box-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"/>
+                    <path d="m21 21-4.35-4.35"/>
+                </svg>
+                <input type="text" id="searchInput" placeholder="Search blogs, apps, folders..." autofocus>
+                <div class="search-close" onclick="closeSearch()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="search-results" id="searchResults">
+                <div class="search-empty">
+                    <div class="search-empty-icon">🔍</div>
+                    <div class="search-empty-text">Start typing to search...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Hidden Audio Element -->
     <audio id="backgroundMusic" loop>
         <source src="music/sunflower.mp3" type="audio/mpeg">
     </audio>
 
     <script src="js/script.js"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
 </body>
 </html>
