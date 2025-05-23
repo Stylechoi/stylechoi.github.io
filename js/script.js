@@ -655,31 +655,29 @@ function openGitHub() {
 
 // Search functionality
 function openSearch() {
-    const searchModal = document.getElementById('searchModal');
-    const searchInput = document.getElementById('searchInput');
+    const spotlightContainer = document.querySelector('.spotlight-search-container');
+    const spotlightInput = document.getElementById('spotlightInput');
     
-    if (searchModal) {
-        searchModal.classList.add('active');
-        setTimeout(() => {
-            searchInput.focus();
-        }, 100);
+    if (spotlightContainer) {
+        spotlightContainer.classList.add('active');
+        if (spotlightInput) {
+            setTimeout(() => {
+                spotlightInput.focus();
+            }, 100);
+        }
     }
 }
 
 function closeSearch() {
-    const searchModal = document.getElementById('searchModal');
-    const searchInput = document.getElementById('searchInput');
-    const searchResults = document.getElementById('searchResults');
+    const spotlightContainer = document.querySelector('.spotlight-search-container');
+    const spotlightInput = document.getElementById('spotlightInput');
     
-    if (searchModal) {
-        searchModal.classList.remove('active');
-        searchInput.value = '';
-        searchResults.innerHTML = `
-            <div class="search-empty">
-                <div class="search-empty-icon">🔍</div>
-                <div class="search-empty-text">Start typing to search...</div>
-            </div>
-        `;
+    if (spotlightContainer) {
+        spotlightContainer.classList.remove('active');
+        if (spotlightInput) {
+            spotlightInput.value = '';
+            spotlightInput.blur();
+        }
     }
 }
 
@@ -795,32 +793,33 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // 검색 이벤트 리스너 추가
     const spotlightIcon = document.getElementById('spotlightIcon');
-    const searchInput = document.getElementById('searchInput');
-    const searchModal = document.getElementById('searchModal');
+    const spotlightInput = document.getElementById('spotlightInput');
+    const spotlightContainer = document.querySelector('.spotlight-search-container');
     
     if (spotlightIcon) {
         spotlightIcon.addEventListener('click', openSearch);
     }
     
-    if (searchInput) {
-        searchInput.addEventListener('input', (e) => {
+    if (spotlightInput) {
+        spotlightInput.addEventListener('input', (e) => {
             performSearch(e.target.value);
         });
         
-        searchInput.addEventListener('keydown', (e) => {
+        spotlightInput.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 closeSearch();
             }
         });
     }
     
-    if (searchModal) {
-        searchModal.addEventListener('click', (e) => {
-            if (e.target === searchModal) {
+    // 다른 곳 클릭 시 spotlight 닫기
+    document.addEventListener('click', (e) => {
+        if (spotlightContainer && spotlightContainer.classList.contains('active')) {
+            if (!spotlightContainer.contains(e.target) && e.target !== spotlightIcon) {
                 closeSearch();
             }
-        });
-    }
+        }
+    });
     
     // 키보드 단축키 (Cmd+Space)
     document.addEventListener('keydown', (e) => {
