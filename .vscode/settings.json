@@ -1,0 +1,20 @@
+{
+  "markdownlint.config": {
+    "MD033": false,
+    "MD041": false
+  },
+  "files.associations": {
+    "*.md": "markdown"
+  },
+  "markdown.preview.fontSize": 16,
+  "markdown.preview.lineHeight": 1.6,
+  "editor.wordWrap": "on",
+  "editor.rulers": [80],
+  "editor.minimap.enabled": false,
+  "workbench.colorTheme": "Default Dark+",
+  "editor.fontFamily": "'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace",
+  "editor.fontSize": 14,
+  "editor.lineHeight": 1.6,
+  "markdown.extension.toc.updateOnSave": true,
+  "markdown.extension.preview.autoShowPreviewToSide": true
+}
