@@ -1910,6 +1910,18 @@ body {
         height: 60px;
         font-size: 24px;
     }
+    
+    /* 폴더 모달만 모바일에서 더 작게 조정 */
+    .app-modal[id*="folderModal"] .modal-window {
+        width: calc(100vw - 60px) !important;
+        height: calc(100vh - 100px) !important;
+        height: calc(100dvh - 100px) !important;
+        max-width: calc(100vw - 60px) !important;
+        max-height: calc(100vh - 100px) !important;
+        max-height: calc(100dvh - 100px) !important;
+        min-width: 280px !important;
+        min-height: 400px !important;
+    }
 }
 
 /* Touch device optimizations */
@@ -1964,4 +1976,51 @@ body {
 
 .pause-icon {
     display: none;
+}
+
+/* 모바일에서 폴더 모달 추가 조정 */
+@media (max-width: 768px) {
+    /* 폴더 모달만 더 작게 */
+    .app-modal[id*="folderModal"] .modal-window {
+        width: calc(100vw - 50px) !important;
+        height: calc(100vh - 80px) !important;
+        height: calc(100dvh - 80px) !important;
+        max-width: calc(100vw - 50px) !important;
+        max-height: calc(100vh - 80px) !important;
+        max-height: calc(100dvh - 80px) !important;
+        min-width: 300px !important;
+        min-height: 450px !important;
+    }
+    
+    /* 폴더 모달의 헤더 영역도 조정 */
+    .app-modal[id*="folderModal"] .modal-header {
+        padding: 12px 16px;
+    }
+    
+    /* 폴더 모달의 콘텐츠 패딩 조정 */
+    .app-modal[id*="folderModal"] .modal-content {
+        padding: 16px;
+    }
+    
+    /* 폴더 모달의 velog 포스트 그리드 조정 */
+    .app-modal[id*="folderModal"] .velog-posts {
+        padding: 16px;
+        gap: 16px;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+    
+    /* 폴더 모달의 velog 포스트 카드 크기 조정 */
+    .app-modal[id*="folderModal"] .velog-post-card {
+        height: 250px;
+    }
+    
+    /* 폴더 모달의 velog 포스트 이미지 크기 조정 */
+    .app-modal[id*="folderModal"] .velog-post-image {
+        height: 130px;
+    }
+    
+    /* 폴더 모달의 velog 포스트 정보 패딩 조정 */
+    .app-modal[id*="folderModal"] .velog-post-info {
+        padding: 16px;
+    }
 } 
