@@ -276,7 +276,7 @@ body {
     -webkit-backdrop-filter: blur(20px);
     border-radius: 16px;
     padding: 10px;
-    z-index: 2000;
+    z-index: 3000;
     opacity: 0;
     visibility: hidden;
     transform: translateY(-10px);
@@ -874,7 +874,7 @@ body {
     display: none;
     justify-content: center;
     align-items: center;
-    z-index: 2000;
+    z-index: 9000;
     animation: modalFadeIn 0.3s ease;
     padding: 40px;
 }
@@ -1897,7 +1897,7 @@ body {
     border-radius: 8px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-    z-index: 1500;
+    z-index: 3500;
     opacity: 0;
     visibility: hidden;
     transform: translateY(-5px);
@@ -1983,7 +1983,7 @@ body {
     top: 50px;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 1500;
+    z-index: 4000;
     width: 100%;
     max-width: 600px;
     padding: 0 20px;
@@ -2065,7 +2065,7 @@ body {
 /* App Modal - No Background Blur */
 .app-modal {
     position: fixed;
-    z-index: 2000;
+    z-index: 9500;
     pointer-events: none;
 }
 
