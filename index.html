@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Blog - macOS Style</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Boot Screen -->
+    <div class="boot-screen" id="bootScreen">
+        <svg class="apple-logo" viewBox="0 0 24 24" fill="white">
+            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+        </svg>
+        <div class="progress-container">
+            <div class="progress-bar"></div>
+        </div>
+    </div>
+
+    <!-- Desktop -->
+    <div class="desktop" id="desktop">
+        <!-- Menu Bar -->
+        <div class="menu-bar">
+            <div class="menu-left">
+                <div class="apple-menu">🍎</div>
+                <div class="menu-item active">Finder</div>
+                <div class="menu-item">파일</div>
+                <div class="menu-item">편집</div>
+                <div class="menu-item">보기</div>
+                <div class="menu-item">이동</div>
+                <div class="menu-item">윈도우</div>
+                <div class="menu-item">도움말</div>
+            </div>
+            <div class="menu-right">
+                <div class="menu-icon">🔋</div>
+                <div class="menu-icon">📶</div>
+                <div class="menu-icon">🔍</div>
+                <div class="time" id="currentTime"></div>
+            </div>
+        </div>
+
+        <!-- Desktop Icons -->
+        <div class="desktop-icons">
+            <div class="desktop-icon" onclick="openFolder('daily')" data-folder="daily">
+                <div class="icon-image folder">
+                    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- macOS Style Folder Icon -->
+                        <defs>
+                            <linearGradient id="folderGradient1" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" style="stop-color:#4A9EFF;stop-opacity:1" />
+                                <stop offset="50%" style="stop-color:#1D7CE8;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#0A5BC4;stop-opacity:1" />
+                            </linearGradient>
+                            <linearGradient id="folderGradient2" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" style="stop-color:#6BB6FF;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#4A9EFF;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <!-- Folder back -->
+                        <path d="M8 24 C8 20 10 18 14 18 L50 18 C54 18 56 20 56 24 L56 48 C56 52 54 54 50 54 L14 54 C10 54 8 52 8 48 Z" fill="url(#folderGradient1)"/>
+                        <!-- Folder tab -->
+                        <path d="M8 18 C8 16 9 15 11 15 L28 15 C29 15 30 16 31 17 L32 18 L50 18 C54 18 56 20 56 24 L56 26 L8 26 Z" fill="url(#folderGradient2)"/>
+                        <!-- Subtle highlight -->
+                        <path d="M8 24 C8 20 10 18 14 18 L50 18 C54 18 56 20 56 24 L56 26 L8 26 Z" fill="rgba(255,255,255,0.2)"/>
+                    </svg>
+                </div>
+                <div class="icon-name">일상vlog</div>
+            </div>
+            <div class="desktop-icon" onclick="openFolder('tech')" data-folder="tech">
+                <div class="icon-image folder">
+                    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- macOS Style Folder Icon -->
+                        <defs>
+                            <linearGradient id="folderGradient3" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" style="stop-color:#FF9F0A;stop-opacity:1" />
+                                <stop offset="50%" style="stop-color:#FF8C00;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#E6750A;stop-opacity:1" />
+                            </linearGradient>
+                            <linearGradient id="folderGradient4" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" style="stop-color:#FFB340;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#FF9F0A;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <!-- Folder back -->
+                        <path d="M8 24 C8 20 10 18 14 18 L50 18 C54 18 56 20 56 24 L56 48 C56 52 54 54 50 54 L14 54 C10 54 8 52 8 48 Z" fill="url(#folderGradient3)"/>
+                        <!-- Folder tab -->
+                        <path d="M8 18 C8 16 9 15 11 15 L28 15 C29 15 30 16 31 17 L32 18 L50 18 C54 18 56 20 56 24 L56 26 L8 26 Z" fill="url(#folderGradient4)"/>
+                        <!-- Subtle highlight -->
+                        <path d="M8 24 C8 20 10 18 14 18 L50 18 C54 18 56 20 56 24 L56 26 L8 26 Z" fill="rgba(255,255,255,0.2)"/>
+                    </svg>
+                </div>
+                <div class="icon-name">기술vlog</div>
+            </div>
+        </div>
+
+        <!-- Dock -->
+        <div class="dock-container">
+            <div class="dock">
+                <div class="dock-item running" data-tooltip="Finder">
+                    <div class="icon">
+                        <img src="https://uploads-ssl.webflow.com/5f7081c044fb7b3321ac260e/5f70853981255cc36b3a37af_finder.png" alt="Finder">
+                    </div>
+                </div>
+                <div class="dock-item" data-tooltip="LaunchPad">
+                    <div class="icon">
+                        <img src="https://uploads-ssl.webflow.com/5f7081c044fb7b3321ac260e/5f70853943597517f128b9b4_launchpad.png" alt="LaunchPad">
+                    </div>
+                </div>
+                <div class="dock-item" data-tooltip="Safari">
+                    <div class="icon">
+                        <img src="https://uploads-ssl.webflow.com/5f7081c044fb7b3321ac260e/5f70853ddd826358438eda6d_safari.png" alt="Safari">
+                    </div>
+                </div>
+                <div class="dock-item" data-tooltip="Terminal">
+                    <div class="icon">
+                        <img src="https://uploads-ssl.webflow.com/5f7081c044fb7b3321ac260e/5f70853c849ec3735b52cef9_notes.png" alt="Terminal">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Daily Blog Modal -->
+    <div class="modal" id="dailyModal">
+        <div class="modal-window">
+            <div class="modal-header">
+                <div class="window-controls">
+                    <button class="window-control close" onclick="closeModal('dailyModal')"></button>
+                    <button class="window-control minimize"></button>
+                    <button class="window-control maximize"></button>
+                </div>
+                <div class="modal-title">일상vlog</div>
+            </div>
+            <div class="modal-content">
+                <div class="blog-grid" id="dailyBlogGrid">
+                    <!-- Sample blog posts will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tech Blog Modal -->
+    <div class="modal" id="techModal">
+        <div class="modal-window">
+            <div class="modal-header">
+                <div class="window-controls">
+                    <button class="window-control close" onclick="closeModal('techModal')"></button>
+                    <button class="window-control minimize"></button>
+                    <button class="window-control maximize"></button>
+                </div>
+                <div class="modal-title">기술vlog</div>
+            </div>
+            <div class="modal-content">
+                <div class="blog-grid" id="techBlogGrid">
+                    <!-- Sample blog posts will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
