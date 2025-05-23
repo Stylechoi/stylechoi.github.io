@@ -441,11 +441,12 @@ class MacInterface {
         });
     }
 
-    closePostModal() {
-        // 레거시 함수 - 더 이상 사용되지 않음
-        const modal = document.getElementById('postModal');
+    closePostModal(modalId) {
+        const modal = document.getElementById(modalId);
         if (modal) {
             modal.remove();
+            activePostModals.delete(modalId);
+            modalResetFunctions.delete(modalId); // 리셋 함수도 정리
         }
     }
 
@@ -1108,6 +1109,11 @@ function goHome() {
         closeFolderModal(modalId, folderType);
     });
     
+    // 모든 포스트 모달 닫기
+    activePostModals.forEach((title, modalId) => {
+        closePostModal(modalId);
+    });
+    
     // 컨트롤 센터 닫기
     const controlCenterPanel = document.getElementById('controlCenterPanel');
     if (controlCenterPanel) {
@@ -1550,6 +1556,14 @@ function resetAllModalsPosition() {
     
     // 폴더 모달들 되돌리기
     activeFolderModals.forEach((modalId) => {
+        const resetFunc = modalResetFunctions.get(modalId);
+        if (resetFunc) {
+            resetFunc();
+        }
+    });
+    
+    // 포스트 모달들 되돌리기
+    activePostModals.forEach((title, modalId) => {
         const resetFunc = modalResetFunctions.get(modalId);
         if (resetFunc) {
             resetFunc();
