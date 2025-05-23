@@ -251,7 +251,7 @@ class MacInterface {
             }
 
             // Sort posts by date (newest first)
-            posts.sort((a, b) => new Date(b.dateRaw) - new Date(a.dateRaw));
+            posts.sort((a, b) => new Date(b.date) - new Date(a.date));
 
             // Create velog style post cards
             posts.forEach(post => {
@@ -272,76 +272,18 @@ class MacInterface {
     }
 
     async fetchPostsFromFolder(folderType) {
-        const posts = [];
-        
-        // 실제 파일 목록 (나중에 동적으로 가져올 수 있도록 확장 가능)
-        const fileList = {
-            daily: [
-                '2024-05-23-first-post-with-new-system.md',
-                '2025-05-19-async-await-programming.md',
-                '2025-05-20-event-loop-optimization.md',
-                '2025-05-21-web-worker-multithreading.md'
-            ],
-            tech: ['2024-05-23-github-blog-system.md']
-        };
-        
-        const files = fileList[folderType] || [];
-        
-        for (const filename of files) {
-            try {
-                const response = await fetch(`posts/${folderType}/${filename}`);
-                if (response.ok) {
-                    const content = await response.text();
-                    const post = this.parseMarkdownPost(content, filename);
-                    posts.push(post);
-                }
-            } catch (error) {
-                console.warn(`Failed to load ${filename}:`, error);
+        try {
+            // JSON 파일에서 포스트 데이터 읽어오기
+            const response = await fetch('posts/posts-data.json');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
+            const data = await response.json();
+            return data[folderType] || [];
+        } catch (error) {
+            console.warn(`Failed to load posts data:`, error);
+            return [];
         }
-        
-        return posts;
-    }
-
-    parseMarkdownPost(content, filename) {
-        const lines = content.split('\n');
-        let frontMatterEnd = -1;
-        let frontMatter = {};
-        
-        // Parse front matter
-        if (lines[0] === '---') {
-            for (let i = 1; i < lines.length; i++) {
-                if (lines[i] === '---') {
-                    frontMatterEnd = i;
-                    break;
-                }
-                const [key, ...valueParts] = lines[i].split(':');
-                if (key && valueParts.length > 0) {
-                    frontMatter[key.trim()] = valueParts.join(':').trim();
-                }
-            }
-        }
-        
-        // Extract content
-        const contentLines = frontMatterEnd > -1 ? lines.slice(frontMatterEnd + 1) : lines;
-        const bodyContent = contentLines.join('\n');
-        
-        // Create excerpt (first paragraph or first 150 characters)
-        const firstParagraph = contentLines.find(line => line.trim() && !line.startsWith('#'));
-        const excerpt = firstParagraph ? 
-            (firstParagraph.length > 150 ? firstParagraph.substring(0, 150) + '...' : firstParagraph) :
-            '내용을 읽어보세요...';
-        
-        return {
-            title: frontMatter.title || 'Untitled',
-            date: this.formatDate(frontMatter.date || new Date().toISOString().split('T')[0]),
-            dateRaw: frontMatter.date || new Date().toISOString().split('T')[0],
-            category: frontMatter.category || 'general',
-            description: frontMatter.description || excerpt,
-            excerpt: excerpt,
-            content: bodyContent,
-            filename: filename
-        };
     }
 
     createVelogPostCard(post, folderType) {
@@ -349,13 +291,16 @@ class MacInterface {
         postCard.className = 'velog-post-card';
         postCard.onclick = () => this.openPostModal(post);
         
+        // JSON 데이터의 date 필드를 직접 사용 (이미 포맷된 상태)
+        const formattedDate = this.formatDate(post.date);
+        
         postCard.innerHTML = `
             <div class="velog-post-image ${folderType}">
                 ${this.getPostThumbnailIcon(folderType)}
             </div>
             <div class="velog-post-content">
                 <div class="velog-post-title">${post.title}</div>
-                <div class="velog-post-date">${post.date}</div>
+                <div class="velog-post-date">${formattedDate}</div>
                 <div class="velog-post-excerpt">${post.description || post.excerpt}</div>
             </div>
         `;
@@ -665,7 +610,7 @@ async function loadVelogPostsForModal(folderType, gridId) {
         }
 
         // Sort posts by date (newest first)
-        posts.sort((a, b) => new Date(b.dateRaw) - new Date(a.dateRaw));
+        posts.sort((a, b) => new Date(b.date) - new Date(a.date));
 
         // Create velog style post cards
         posts.forEach(post => {
