@@ -135,37 +135,22 @@ class MacInterface {
     }
 
     startClock() {
+        // Update current time and date
         const updateDateTime = () => {
             const now = new Date();
             const days = ['일', '월', '화', '수', '목', '금', '토'];
             const month = now.getMonth() + 1;
             const date = now.getDate();
             const day = days[now.getDay()];
-            
-            let hours = now.getHours();
+            const hours = String(now.getHours()).padStart(2, '0');
             const minutes = String(now.getMinutes()).padStart(2, '0');
-            const isPM = hours >= 12;
-            
-            if (hours > 12) {
-                hours = hours - 12;
-            } else if (hours === 0) {
-                hours = 12;
-            }
-            
-            const timePrefix = isPM ? '오후' : '오전';
-            
-            const dateString = `${day} ${month}월 ${date}일`;
-            const timeString = `${timePrefix} ${hours}:${minutes}`;
-            
-            const timeDate = document.querySelector('.time-date');
-            const timeClock = document.querySelector('.time-clock');
-            
-            if (timeDate && timeClock) {
-                timeDate.textContent = dateString;
-                timeClock.textContent = timeString;
-            }
+
+            // 원하는 형식: 5월 23일 (금) 11:49
+            const dateTimeString = `${month}월 ${date}일 (${day}) ${hours}:${minutes}`;
+            document.getElementById('currentTime').textContent = dateTimeString;
         };
 
+        // Update time immediately and then every second
         updateDateTime();
         setInterval(updateDateTime, 1000);
     }
