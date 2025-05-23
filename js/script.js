@@ -942,15 +942,16 @@ document.addEventListener('DOMContentLoaded', () => {
     
     let isFullscreen = false;
     
-    // 다크모드 토글 기능
-    function updateDarkMode(isDark) {
-        if (isDark) {
-            document.body.classList.add('dark');
+    // 테마 토글 상태 변수
+    let themeToggleActive = true; // 기본적으로 활성화 상태
+    
+    // 다크모드 토글 기능 (실제 테마 변경 없이 토글 상태만 변경)
+    function updateThemeToggle(isActive) {
+        if (isActive) {
             darkModeCard.classList.add('active');
             darkModeIcon.innerHTML = '<circle cx="12" cy="12" r="5"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>';
             darkModeTitle.textContent = 'Light Mode';
         } else {
-            document.body.classList.remove('dark');
             darkModeCard.classList.remove('active');
             darkModeIcon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
             darkModeTitle.textContent = 'Dark Mode';
@@ -960,8 +961,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (darkModeToggle) {
         darkModeToggle.addEventListener('click', function(event) {
             event.stopPropagation(); // 이벤트 버블링 방지
-            const isDark = document.body.classList.contains('dark');
-            updateDarkMode(!isDark);
+            themeToggleActive = !themeToggleActive;
+            updateThemeToggle(themeToggleActive);
         });
     }
     
@@ -1059,7 +1060,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     // 초기 상태 설정
-    updateDarkMode(false);
+    updateThemeToggle(true);
     updateAirdropState(true); // AirDrop 초기 활성화
 });
 

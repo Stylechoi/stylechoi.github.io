@@ -24,29 +24,6 @@ body {
     -webkit-overflow-scrolling: touch;
 }
 
-body.dark,
-body.dark .modal-window,
-body.dark .control-center-panel,
-body.dark .menu-bar,
-body.dark .desktop {
-    background: #18181a !important;
-    color: #f5f5f7 !important;
-}
-
-body.dark .modal-window,
-body.dark .control-center-panel {
-    background: rgba(40, 40, 42, 0.95) !important;
-    color: #f5f5f7 !important;
-}
-
-body.dark .menu-bar {
-    background: rgba(23, 23, 23, 0.95) !important;
-}
-
-body.dark .desktop {
-    background: #18181a !important;
-}
-
 /* Loading Screen - Boot Screen */
 .boot-screen {
     position: fixed;
@@ -193,6 +170,7 @@ body.dark .desktop {
 .menu-item.active {
     color: rgba(255, 255, 255, 1);
     font-weight: 600;
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .menu-right {
@@ -251,7 +229,7 @@ body.dark .desktop {
     vertical-align: middle;
     display: inline-block;
     position: relative;
-    top: 2px;
+    top: 1px;
 }
 
 .time {
@@ -639,34 +617,11 @@ body.dark .desktop {
     color: #333;
 }
 
-/* 다크모드 적용 */
-body.dark .control-center-panel {
-    background: rgba(40, 40, 42, 0.95) !important;
-}
-
-body.dark .cc-card {
-    background: rgba(58, 58, 60, 0.8) !important;
-}
-
-body.dark .cc-card:hover {
-    background: rgba(68, 68, 70, 0.9) !important;
-}
-
-/* 활성화된 다크모드 토글 */
-#darkModeCard.active .cc-toggle {
-    background: #007AFF;
-    color: white;
-}
-
-#darkModeCard.active .cc-icon {
-    color: white;
-}
-
 /* Desktop Icons */
 .desktop-icons {
     position: absolute;
-    top: 50px;
-    left: 30px;
+    top: 80px;
+    left: 60px;
     display: flex;
     flex-direction: column;
     gap: 24px;
@@ -679,8 +634,6 @@ body.dark .cc-card:hover {
     align-items: center;
     cursor: pointer;
     width: 100px;
-    padding: 12px;
-    border-radius: 12px;
     transition: all 0.3s ease;
 }
 
@@ -690,12 +643,12 @@ body.dark .cc-card:hover {
 }
 
 .desktop-icon.selected {
-    background-color: rgba(0, 123, 255, 0.3);
+    background-color: transparent;
 }
 
 .icon-image {
-    width: 80px;
-    height: 80px;
+    width: 96px;
+    height: 96px;
     background: linear-gradient(135deg, #4A90E2 0%, #357ABD 50%, #1E5F99 100%);
     border-radius: 16px;
     margin-bottom: 8px;
@@ -711,8 +664,8 @@ body.dark .cc-card:hover {
 
 .icon-image.folder {
     background: none;
-    width: 80px;
-    height: 80px;
+    width: 96px;
+    height: 96px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -741,8 +694,8 @@ body.dark .cc-card:hover {
 
 .icon-image.folder-img {
     background: none;
-    width: 80px;
-    height: 80px;
+    width: 96px;
+    height: 96px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -763,7 +716,6 @@ body.dark .cc-card:hover {
 }
 
 .desktop-icon:hover .icon-image.folder-img {
-    background: rgba(255, 255, 255, 0.08);
     transform: scale(1.05) translateY(-2px);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
@@ -784,9 +736,9 @@ body.dark .cc-card:hover {
 }
 
 .dock {
-    padding: 8px;
+    padding: 10px;
     width: auto;
-    height: 78px;
+    height: 84px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -803,8 +755,8 @@ body.dark .cc-card:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 64px;
-    height: 64px;
+    width: 70px;
+    height: 70px;
     cursor: pointer;
     transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     transform-origin: 50% 100%;
@@ -943,7 +895,7 @@ body.dark .cc-card:hover {
 }
 
 .modal-window {
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(40, 40, 42, 0.95);
     backdrop-filter: blur(40px);
     border-radius: 12px;
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), 0 10px 20px rgba(0, 0, 0, 0.3);
@@ -958,6 +910,7 @@ body.dark .cc-card:hover {
     border: 1px solid rgba(255, 255, 255, 0.2);
     resize: both;
     position: relative;
+    color: #f5f5f7;
 }
 
 @keyframes windowSlideIn {
@@ -975,8 +928,8 @@ body.dark .cc-card:hover {
     display: flex;
     align-items: center;
     padding: 16px 24px;
-    background: rgba(246, 246, 246, 0.95);
-    border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
+    background: rgba(58, 58, 60, 0.95);
+    border-bottom: 0.5px solid rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(20px);
     cursor: default;
     pointer-events: auto;
@@ -1056,7 +1009,7 @@ body.dark .cc-card:hover {
 .modal-title {
     font-size: 14px;
     font-weight: 600;
-    color: #333;
+    color: #f5f5f7;
     flex: 1;
     text-align: center;
     margin-right: 40px;
@@ -1076,13 +1029,13 @@ body.dark .cc-card:hover {
 .pinned-section {
     margin-bottom: 32px;
     padding-bottom: 24px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .pinned-section h3 {
     font-size: 18px;
     font-weight: 600;
-    color: #1d1d1f;
+    color: #f5f5f7;
     margin-bottom: 16px;
     display: flex;
     align-items: center;
@@ -1110,13 +1063,13 @@ body.dark .cc-card:hover {
 
 /* New Blog Card Style with Image */
 .blog-card {
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(58, 58, 60, 0.8);
     border-radius: 16px;
     overflow: hidden;
     cursor: pointer;
     transition: all 0.3s ease;
-    border: 1px solid rgba(0, 0, 0, 0.06);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
     display: flex;
     height: 140px;
     position: relative;
@@ -1124,8 +1077,8 @@ body.dark .cc-card:hover {
 
 .blog-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
-    border-color: rgba(0, 122, 255, 0.2);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+    border-color: rgba(0, 122, 255, 0.4);
 }
 
 .blog-card.pinned {
@@ -1179,7 +1132,7 @@ body.dark .cc-card:hover {
 .blog-title {
     font-size: 18px;
     font-weight: 600;
-    color: #1d1d1f;
+    color: #f5f5f7;
     margin-bottom: 8px;
     line-height: 1.3;
     letter-spacing: -0.01em;
@@ -1194,7 +1147,7 @@ body.dark .cc-card:hover {
     color: #007AFF;
     margin-bottom: 12px;
     font-weight: 600;
-    background: rgba(0, 122, 255, 0.1);
+    background: rgba(0, 122, 255, 0.2);
     padding: 4px 12px;
     border-radius: 12px;
     display: inline-block;
@@ -1202,7 +1155,7 @@ body.dark .cc-card:hover {
 
 .blog-preview {
     font-size: 14px;
-    color: #666;
+    color: rgba(255, 255, 255, 0.8);
     line-height: 1.5;
     margin-bottom: 16px;
     display: -webkit-box;
@@ -1315,11 +1268,11 @@ body.dark .cc-card:hover {
     gap: 16px;
     margin-bottom: 24px;
     padding-bottom: 16px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .post-date {
-    color: #86868b;
+    color: rgba(255, 255, 255, 0.7);
     font-size: 14px;
 }
 
@@ -1334,7 +1287,7 @@ body.dark .cc-card:hover {
 
 .post-body {
     line-height: 1.7;
-    color: #1d1d1f;
+    color: #f5f5f7;
 }
 
 .post-body h1, .post-body h2, .post-body h3 {
@@ -1360,19 +1313,21 @@ body.dark .cc-card:hover {
 }
 
 .post-body code {
-    background: rgba(0, 0, 0, 0.05);
+    background: rgba(255, 255, 255, 0.1);
     padding: 2px 6px;
     border-radius: 4px;
     font-family: 'SF Mono', Monaco, monospace;
     font-size: 13px;
+    color: #f5f5f7;
 }
 
 .post-body pre {
-    background: #f8f8f8;
+    background: rgba(0, 0, 0, 0.3);
     padding: 20px;
     border-radius: 8px;
     overflow-x: auto;
     margin: 20px 0;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .post-body pre code {
@@ -1383,7 +1338,7 @@ body.dark .cc-card:hover {
 .empty-state {
     text-align: center;
     padding: 60px 20px;
-    color: #86868b;
+    color: rgba(255, 255, 255, 0.7);
 }
 
 .empty-icon {
@@ -1394,7 +1349,7 @@ body.dark .cc-card:hover {
 .empty-title {
     font-size: 18px;
     font-weight: 600;
-    color: #1d1d1f;
+    color: #f5f5f7;
     margin-bottom: 8px;
     letter-spacing: -0.01em;
 }
@@ -1402,6 +1357,7 @@ body.dark .cc-card:hover {
 .empty-subtitle {
     font-size: 14px;
     line-height: 1.4;
+    color: rgba(255, 255, 255, 0.7);
 }
 
 /* Responsive Design */
@@ -1675,13 +1631,13 @@ body.dark .cc-card:hover {
 }
 
 .velog-post-card {
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(58, 58, 60, 0.8);
     border-radius: 16px;
     overflow: hidden;
     cursor: pointer;
     transition: all 0.3s ease;
-    border: 1px solid rgba(0, 0, 0, 0.06);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
     height: 300px;
     display: flex;
     flex-direction: column;
@@ -1689,7 +1645,7 @@ body.dark .cc-card:hover {
 
 .velog-post-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
 }
 
 .velog-post-image {
@@ -1745,7 +1701,7 @@ body.dark .cc-card:hover {
 .velog-post-title {
     font-size: 16px;
     font-weight: 600;
-    color: #1d1d1f;
+    color: #f5f5f7;
     line-height: 1.4;
     margin-bottom: auto;
     display: -webkit-box;
@@ -1756,7 +1712,7 @@ body.dark .cc-card:hover {
 
 .velog-post-hashtag {
     font-size: 12px;
-    color: #666;
+    color: rgba(255, 255, 255, 0.7);
     font-weight: 500;
     margin-top: 12px;
     opacity: 0.8;
@@ -1780,12 +1736,12 @@ body.dark .cc-card:hover {
 .velog-empty-title {
     font-size: 18px;
     font-weight: 600;
-    color: #333;
+    color: #f5f5f7;
     margin-bottom: 8px;
 }
 
 .velog-empty-subtitle {
-    color: #666;
+    color: rgba(255, 255, 255, 0.7);
 }
 
 .menu-title {
@@ -1928,16 +1884,6 @@ body.dark .cc-card:hover {
     color: white;
 }
 
-/* AirDrop 초기 활성화 - 제거 */
-/* #airdropToggle {
-    background: #007AFF;
-    color: white;
-}
-
-#airdropToggle .cc-icon {
-    color: white;
-} */
-
 /* Wi-Fi Menu Panel */
 .wifi-menu-panel {
     position: fixed;
@@ -2031,11 +1977,6 @@ body.dark .cc-card:hover {
     transform: translateX(18px);
 }
 
-/* 다크모드 적용 */
-body.dark .wifi-menu-panel {
-    background: rgba(40, 40, 42, 0.95);
-}
-
 /* Spotlight Search - 상단 고정 */
 .spotlight-search-container {
     position: fixed;
@@ -2099,28 +2040,6 @@ body.dark .wifi-menu-panel {
     font-weight: 400;
 }
 
-/* 다크모드 Spotlight Search */
-body.dark .spotlight-search-box {
-    background: rgba(30, 30, 30, 0.9);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-body.dark .spotlight-search-box:focus-within {
-    background: rgba(30, 30, 30, 0.95);
-}
-
-body.dark .spotlight-search-icon {
-    color: rgba(255, 255, 255, 0.8);
-}
-
-body.dark #spotlightInput {
-    color: #f5f5f7;
-}
-
-body.dark #spotlightInput::placeholder {
-    color: rgba(255, 255, 255, 0.6);
-}
-
 /* 모바일 최적화 */
 @media (max-width: 768px) {
     .spotlight-search-container {
@@ -2152,18 +2071,13 @@ body.dark #spotlightInput::placeholder {
 
 .app-modal .modal-window {
     pointer-events: all;
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(40, 40, 42, 0.95);
     backdrop-filter: blur(40px);
     border-radius: 12px;
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), 0 10px 20px rgba(0, 0, 0, 0.3);
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.2);
     position: relative;
-}
-
-/* 다크모드 앱 모달 */
-body.dark .app-modal .modal-window {
-    background: rgba(40, 40, 42, 0.95);
     color: #f5f5f7;
 }
 
@@ -2199,3 +2113,13 @@ body.dark .app-modal .modal-window {
     -moz-user-select: text;
     -ms-user-select: text;
 }
+
+/* 다크모드 토글 활성화 스타일 */
+#darkModeCard.active .cc-toggle {
+    background: #007AFF;
+    color: white;
+}
+
+#darkModeCard.active .cc-icon {
+    color: white;
+} 
