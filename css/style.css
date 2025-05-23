@@ -1536,13 +1536,13 @@ body {
     /* Dock을 모바일에서 훨씬 크게 만들어 균형 맞추기 */
     .dock {
         padding: 12px 20px !important;
-        height: 90px !important;
+        height: 85px !important;
         border-radius: 24px !important;
     }
 
     .dock-item {
-        width: 68px !important;
-        height: 68px !important;
+        width: 64px !important;
+        height: 64px !important;
         margin: 0 8px !important;
     }
 
