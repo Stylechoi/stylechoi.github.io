@@ -388,16 +388,28 @@ class MacInterface {
     }
 
     openPostModal(post) {
-        // Create post modal
+        // 포스트 모달 카운터 사용
+        postModalCounter++;
+        const modalId = `postModal_${postModalCounter}`;
+        
+        // app-modal 스타일로 생성 (배경 블러 없음)
         const modal = document.createElement('div');
-        modal.className = 'modal active';
-        modal.id = 'postModal';
+        modal.className = 'app-modal';
+        modal.id = modalId;
+        modal.style.position = 'fixed';
+        
+        // 중앙 기준으로 % 단위 사용 (cascade 효과)
+        const offsetPercent = (postModalCounter % 5) * 2; // 2%씩 오프셋
+        modal.style.top = `${50 + offsetPercent}%`;
+        modal.style.left = `${50 + offsetPercent}%`;
+        modal.style.transform = 'translate(-50%, -50%)';
+        modal.style.zIndex = 2000 + postModalCounter;
         
         modal.innerHTML = `
-            <div class="modal-window post-view-window">
+            <div class="modal-window post-view-window" style="width: 900px; height: 700px; max-width: 95vw; max-height: 95vh;">
                 <div class="modal-header">
                     <div class="window-controls">
-                        <button class="window-control close" onclick="window.macInterface.closePostModal()"></button>
+                        <button class="window-control close" onclick="closePostModal('${modalId}')"></button>
                         <button class="window-control minimize"></button>
                         <button class="window-control maximize"></button>
                     </div>
@@ -418,16 +430,19 @@ class MacInterface {
         `;
         
         document.body.appendChild(modal);
+        activePostModals.set(modalId, post.title);
         
-        // Close modal when clicking outside
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                this.closePostModal();
-            }
+        // 모달 드래그 가능하게 만들기
+        makeModalDraggable(modal);
+        
+        // 클릭시 앞으로 가져오기
+        modal.addEventListener('click', () => {
+            bringPostModalToFront(modalId);
         });
     }
 
     closePostModal() {
+        // 레거시 함수 - 더 이상 사용되지 않음
         const modal = document.getElementById('postModal');
         if (modal) {
             modal.remove();
@@ -1114,6 +1129,10 @@ const modalResetFunctions = new Map(); // modalId -> resetFunction 매핑
 // 폴더 모달 관리
 let folderModalCounter = 0;
 const activeFolderModals = new Map(); // folderType -> modalId 매핑
+
+// 포스트 모달 관리
+let postModalCounter = 0;
+const activePostModals = new Map(); // modalId -> postTitle 매핑
 
 function openAppModal(appType) {
     // 이미 열린 창이 있는지 확인
