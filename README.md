@@ -1,3 +1,4 @@
 
 
-![Stylechoi Blog](https://https://stylechoi.github.io/)
+[Stylechoi Blog] https://stylechoi.github.io/
+
