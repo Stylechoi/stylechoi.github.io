@@ -1,6 +1,22 @@
 {
   "daily": [
     {
+      "id": "2025-05-25-blog-github-practice",
+      "title": "블로그 x GITHUB 연습용",
+      "date": "2025-05-25",
+      "category": "daily",
+      "tags": [
+        "블로그",
+        "GitHub",
+        "연습",
+        "학습"
+      ],
+      "image": "https://images.unsplash.com/photo-1556075798-4825dfaaf498?w=400&h=200&fit=crop",
+      "description": "블로그 연습용",
+      "excerpt": "GitHub와 블로그 시스템을 연동하여 포스트 작성 연습을 진행해보았다.",
+      "content": "---\ntitle: 블로그 x GITHUB 연습용\ndate: 2025-05-25\ncategory: daily\ndescription: 블로그 연습용\n---\n\n연습용 입니다."
+    },
+    {
       "id": "2025-05-24-git-blog-practice",
       "title": "GIT X BLOG 연습하기",
       "date": "2025-05-24",
