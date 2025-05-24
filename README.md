@@ -3,13 +3,8 @@
 [Stylechoi Blog] https://stylechoi.github.io/
 
 
----
-title: 블로그 x GITHUB 연습용
-date: 2025-05-25
-category: daily
-description: 블로그 연습용
----
 
 
-node scripts/auto-add-posts.js
+
+node scripts/all-in-one-sync.js
 

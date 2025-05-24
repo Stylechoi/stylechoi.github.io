@@ -417,6 +417,12 @@ class MacInterface {
         document.body.appendChild(modal);
         activePostModals.set(modalId, post.title);
         
+        // 모달이 즉시 포커스를 받도록 설정
+        setTimeout(() => {
+            bringAnyModalToFront(modalId);
+            modal.focus();
+        }, 50);
+        
         // 모달 드래그 가능하게 만들기
         makeModalDraggable(modal);
         
@@ -586,6 +592,12 @@ function openFolder(folderType) {
     document.body.appendChild(modal);
     activeFolderModals.set(folderType, modalId);
     
+    // 모달이 즉시 포커스를 받도록 설정
+    setTimeout(() => {
+        bringAnyModalToFront(modalId);
+        modal.focus();
+    }, 50);
+    
     // 초기 상태 저장
     modal.dataset.isMaximized = 'false';
     modal.dataset.originalWidth = '900px';
@@ -732,8 +744,21 @@ function closeModal(modalId) {
     }
 }
 
+// 새창을 열고 항상 포커스를 맞추는 범용 함수
+function openNewWindow(url, target = '_blank') {
+    const newWindow = window.open(url, target);
+    // 새창이 항상 위로 오도록 포커스 설정
+    if (newWindow) {
+        // 약간의 지연을 두어 확실히 포커스가 맞춰지도록 함
+        setTimeout(() => {
+            newWindow.focus();
+        }, 100);
+    }
+    return newWindow;
+}
+
 function openGitHub() {
-    window.open('https://github.com/stylechoi', '_blank');
+    openNewWindow('https://github.com/stylechoi');
 }
 
 // Search functionality
@@ -1317,6 +1342,12 @@ function openAppModal(appType) {
     
     document.body.appendChild(modal);
     activeAppModals.set(appType, modalId);
+    
+    // 모달이 즉시 포커스를 받도록 설정
+    setTimeout(() => {
+        bringAnyModalToFront(modalId);
+        modal.focus();
+    }, 50);
     
     // 모달 드래그 가능하게 만들기
     makeModalDraggable(modal);
