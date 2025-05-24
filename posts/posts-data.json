@@ -1,6 +1,22 @@
 {
   "daily": [
     {
+      "id": "2025-05-24-git-blog-practice",
+      "title": "GIT X BLOG 연습하기",
+      "date": "2025-05-24",
+      "category": "daily",
+      "tags": [
+        "Git",
+        "블로그",
+        "연습",
+        "학습"
+      ],
+      "image": "https://images.unsplash.com/photo-1556075798-4825dfaaf498?w=400&h=200&fit=crop",
+      "description": "Git과 블로그 시스템 연동 연습 및 학습",
+      "excerpt": "Git과 블로그 시스템을 연동하여 포스트 작성 및 배포 과정을 연습해보았다.",
+      "content": "---\ntitle: GIT X BLOG 연습하기\ndate: 2025-05-24\ncategory: daily\ndescription: Git과 블로그 시스템 연동 연습 및 학습\n---\n\n나 연습하려고올린거임 ㅇㅇ"
+    },
+    {
       "id": "2025-05-22-ai-mcp-development",
       "title": "Claude와 MCP를 활용한 AI 개발 환경 구축 학습",
       "date": "2025-05-22",
