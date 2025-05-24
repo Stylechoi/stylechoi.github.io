@@ -959,6 +959,12 @@ body {
     background: transparent;
 }
 
+/* 폴더 모달에서는 modal-content 스크롤 제거 - velog-posts에서만 스크롤 */
+.app-modal[id*="folderModal"] .modal-content {
+    overflow: hidden;
+    padding: 0;
+}
+
 /* Blog Components */
 .pinned-section {
     margin-bottom: 32px;
