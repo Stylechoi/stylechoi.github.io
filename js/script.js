@@ -1382,30 +1382,12 @@ function getAppContent(appType) {
         aboutme: {
             title: 'About Me',
             content: `
-                <div style="padding: 40px; text-align: center;">
-                    <div style="margin-bottom: 30px;">
-                        <div style="width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; color: white; font-size: 48px;">
-                            👨‍💻
-                        </div>
-                        <h2 style="margin-bottom: 10px; color: #333;">최도형 (Choi Do Hyeong)</h2>
-                        <p style="color: #666; font-size: 16px;">Full Stack Developer</p>
-                    </div>
-                    
-                    <div style="text-align: left; max-width: 600px; margin: 0 auto;">
-                        <h3 style="margin-bottom: 15px; color: #333;">🚀 Skills</h3>
-                        <p style="margin-bottom: 20px; line-height: 1.6; color: #555;">
-                            Frontend: React, Vue.js, JavaScript, TypeScript, HTML5, CSS3<br>
-                            Backend: Node.js, Python, Java, Spring Boot<br>
-                            Database: MySQL, MongoDB, PostgreSQL<br>
-                            Tools: Git, Docker, AWS, Firebase
-                        </p>
-                        
-                        <h3 style="margin-bottom: 15px; color: #333;">💡 About</h3>
-                        <p style="line-height: 1.6; color: #555;">
-                            안녕하세요! 끊임없이 배우고 성장하는 개발자 최도형입니다. 
-                            사용자 경험을 중시하며, 깔끔하고 효율적인 코드를 작성하는 것을 좋아합니다.
-                            새로운 기술에 대한 호기심이 많고, 팀워크를 통해 더 나은 결과를 만들어내는 것을 즐깁니다.
-                        </p>
+                <div style="padding: 30px; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif; text-align: center;">
+                    <div style="margin-top: 100px;">
+                        <div style="font-size: 64px; margin-bottom: 24px;">🚧</div>
+                        <h1 style="color: #333; margin-bottom: 16px; font-size: 32px;">준비중입니다</h1>
+                        <p style="color: #666; font-size: 18px;">새로운 콘텐츠를 준비하고 있습니다.</p>
+                        <p style="color: #999; font-size: 14px; margin-top: 24px;">곧 만나요! 👋</p>
                     </div>
                 </div>
             `
@@ -1413,48 +1395,12 @@ function getAppContent(appType) {
         project: {
             title: 'My Projects',
             content: `
-                <div style="padding: 30px;">
-                    <h2 style="margin-bottom: 30px; color: #333; text-align: center;">🚀 프로젝트 포트폴리오</h2>
-                    
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;">
-                        <div style="background: white; border-radius: 12px; padding: 24px; box-shadow: 0 4px 16px rgba(0,0,0,0.1); border: 1px solid #eee;">
-                            <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 10px; margin-bottom: 16px; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px;">🌐</div>
-                            <h3 style="margin-bottom: 12px; color: #333;">macOS Style Blog</h3>
-                            <p style="color: #666; line-height: 1.5; margin-bottom: 16px;">
-                                macOS Monterey 스타일의 인터랙티브 블로그 시스템. Vanilla JavaScript로 구현한 네이티브 macOS UI/UX.
-                            </p>
-                            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                                <span style="background: #e3f2fd; color: #1976d2; padding: 4px 8px; border-radius: 12px; font-size: 12px;">JavaScript</span>
-                                <span style="background: #f3e5f5; color: #7b1fa2; padding: 4px 8px; border-radius: 12px; font-size: 12px;">CSS3</span>
-                                <span style="background: #e8f5e8; color: #388e3c; padding: 4px 8px; border-radius: 12px; font-size: 12px;">HTML5</span>
-                            </div>
-                        </div>
-                        
-                        <div style="background: white; border-radius: 12px; padding: 24px; box-shadow: 0 4px 16px rgba(0,0,0,0.1); border: 1px solid #eee;">
-                            <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #ffa726 0%, #ff7043 100%); border-radius: 10px; margin-bottom: 16px; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px;">📱</div>
-                            <h3 style="margin-bottom: 12px; color: #333;">React Native App</h3>
-                            <p style="color: #666; line-height: 1.5; margin-bottom: 16px;">
-                                크로스 플랫폼 모바일 앱 개발. Redux를 활용한 상태 관리와 네이티브 모듈 연동.
-                            </p>
-                            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                                <span style="background: #e3f2fd; color: #1976d2; padding: 4px 8px; border-radius: 12px; font-size: 12px;">React Native</span>
-                                <span style="background: #f3e5f5; color: #7b1fa2; padding: 4px 8px; border-radius: 12px; font-size: 12px;">Redux</span>
-                                <span style="background: #fff3e0; color: #f57c00; padding: 4px 8px; border-radius: 12px; font-size: 12px;">Firebase</span>
-                            </div>
-                        </div>
-                        
-                        <div style="background: white; border-radius: 12px; padding: 24px; box-shadow: 0 4px 16px rgba(0,0,0,0.1); border: 1px solid #eee;">
-                            <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #42a5f5 0%, #478ed1 100%); border-radius: 10px; margin-bottom: 16px; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px;">⚙️</div>
-                            <h3 style="margin-bottom: 12px; color: #333;">Node.js API Server</h3>
-                            <p style="color: #666; line-height: 1.5; margin-bottom: 16px;">
-                                Express.js 기반 RESTful API 서버. JWT 인증과 MongoDB 연동으로 확장 가능한 백엔드 구축.
-                            </p>
-                            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                                <span style="background: #e8f5e8; color: #388e3c; padding: 4px 8px; border-radius: 12px; font-size: 12px;">Node.js</span>
-                                <span style="background: #f3e5f5; color: #7b1fa2; padding: 4px 8px; border-radius: 12px; font-size: 12px;">Express</span>
-                                <span style="background: #e3f2fd; color: #1976d2; padding: 4px 8px; border-radius: 12px; font-size: 12px;">MongoDB</span>
-                            </div>
-                        </div>
+                <div style="padding: 30px; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif; text-align: center;">
+                    <div style="margin-top: 100px;">
+                        <div style="font-size: 64px; margin-bottom: 24px;">🚧</div>
+                        <h1 style="color: #333; margin-bottom: 16px; font-size: 32px;">준비중입니다</h1>
+                        <p style="color: #666; font-size: 18px;">새로운 콘텐츠를 준비하고 있습니다.</p>
+                        <p style="color: #999; font-size: 14px; margin-top: 24px;">곧 만나요! 👋</p>
                     </div>
                 </div>
             `
@@ -1462,39 +1408,12 @@ function getAppContent(appType) {
         portfolio: {
             title: 'My Portfolio',
             content: `
-                <div style="padding: 30px;">
-                    <div style="text-align: center; margin-bottom: 40px;">
-                        <h1 style="margin-bottom: 16px; color: #333;">✨ 포트폴리오</h1>
-                        <p style="color: #666; font-size: 18px;">창의적이고 혁신적인 웹 개발자의 여정</p>
-                    </div>
-                    
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-bottom: 40px;">
-                        <div style="text-align: center;">
-                            <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 50%; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; color: white; font-size: 32px;">🎨</div>
-                            <h3 style="margin-bottom: 8px; color: #333;">UI/UX Design</h3>
-                            <p style="color: #666; line-height: 1.5;">사용자 중심의 직관적인 인터페이스 디자인</p>
-                        </div>
-                        
-                        <div style="text-align: center;">
-                            <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #ffa726 0%, #ff7043 100%); border-radius: 50%; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; color: white; font-size: 32px;">⚡</div>
-                            <h3 style="margin-bottom: 8px; color: #333;">Performance</h3>
-                            <p style="color: #666; line-height: 1.5;">빠르고 효율적인 웹 애플리케이션 최적화</p>
-                        </div>
-                        
-                        <div style="text-align: center;">
-                            <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #42a5f5 0%, #478ed1 100%); border-radius: 50%; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; color: white; font-size: 32px;">📱</div>
-                            <h3 style="margin-bottom: 8px; color: #333;">Responsive</h3>
-                            <p style="color: #666; line-height: 1.5;">모든 디바이스에서 완벽한 반응형 웹</p>
-                        </div>
-                    </div>
-                    
-                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 16px; padding: 32px; color: white; text-align: center;">
-                        <h2 style="margin-bottom: 16px;">🚀 Let's Create Something Amazing</h2>
-                        <p style="margin-bottom: 24px; opacity: 0.9;">함께 혁신적인 프로젝트를 만들어보세요!</p>
-                        <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
-                            <button style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-size: 14px;">📧 Contact</button>
-                            <button style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-size: 14px;">📄 Resume</button>
-                        </div>
+                <div style="padding: 30px; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif; text-align: center;">
+                    <div style="margin-top: 100px;">
+                        <div style="font-size: 64px; margin-bottom: 24px;">🚧</div>
+                        <h1 style="color: #333; margin-bottom: 16px; font-size: 32px;">준비중입니다</h1>
+                        <p style="color: #666; font-size: 18px;">새로운 콘텐츠를 준비하고 있습니다.</p>
+                        <p style="color: #999; font-size: 14px; margin-top: 24px;">곧 만나요! 👋</p>
                     </div>
                 </div>
             `
@@ -1502,61 +1421,12 @@ function getAppContent(appType) {
         memo: {
             title: 'Read Me',
             content: `
-                <div style="padding: 30px; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif;">
-                    <div style="margin-bottom: 30px; text-align: center;">
-                        <div style="font-size: 48px; margin-bottom: 16px;">📝</div>
-                        <h1 style="color: #333; margin-bottom: 8px;">개발자 노트</h1>
-                        <p style="color: #666;">일상과 개발 이야기</p>
-                    </div>
-                    
-                    <div style="background: #f8f9fa; border-radius: 12px; padding: 24px; margin-bottom: 24px;">
-                        <h3 style="color: #333; margin-bottom: 16px;">💡 오늘의 생각</h3>
-                        <p style="color: #555; line-height: 1.6;">
-                            "좋은 코드는 시를 읽는 것과 같다. 간결하면서도 의미가 명확하고, 
-                            읽는 이로 하여금 감동을 주는 것이다."
-                        </p>
-                    </div>
-                    
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px;">
-                        <div style="background: white; border: 1px solid #eee; border-radius: 8px; padding: 20px;">
-                            <h4 style="color: #007AFF; margin-bottom: 12px;">📚 학습 목표</h4>
-                            <ul style="color: #555; line-height: 1.6; padding-left: 16px;">
-                                <li>React 18 새로운 기능 익히기</li>
-                                <li>TypeScript 고급 타입 시스템</li>
-                                <li>Node.js 성능 최적화</li>
-                                <li>Docker & Kubernetes</li>
-                            </ul>
-                        </div>
-                        
-                        <div style="background: white; border: 1px solid #eee; border-radius: 8px; padding: 20px;">
-                            <h4 style="color: #FF9500; margin-bottom: 12px;">🎯 진행 중인 프로젝트</h4>
-                            <ul style="color: #555; line-height: 1.6; padding-left: 16px;">
-                                <li>macOS Style Blog System</li>
-                                <li>React Native Shopping App</li>
-                                <li>AI 챗봇 프로젝트</li>
-                                <li>개인 포트폴리오 사이트</li>
-                            </ul>
-                        </div>
-                        
-                        <div style="background: white; border: 1px solid #eee; border-radius: 8px; padding: 20px;">
-                            <h4 style="color: #34C759; margin-bottom: 12px;">✅ 완료한 일들</h4>
-                            <ul style="color: #555; line-height: 1.6; padding-left: 16px;">
-                                <li>블로그 시스템 구축</li>
-                                <li>반응형 디자인 적용</li>
-                                <li>검색 기능 구현</li>
-                                <li>다크모드 토글</li>
-                            </ul>
-                        </div>
-                        
-                        <div style="background: white; border: 1px solid #eee; border-radius: 8px; padding: 20px;">
-                            <h4 style="color: #FF3B30; margin-bottom: 12px;">🔧 기술 스택</h4>
-                            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-                                <span style="background: #e3f2fd; color: #1976d2; padding: 4px 8px; border-radius: 12px; font-size: 12px;">JavaScript</span>
-                                <span style="background: #f3e5f5; color: #7b1fa2; padding: 4px 8px; border-radius: 12px; font-size: 12px;">React</span>
-                                <span style="background: #e8f5e8; color: #388e3c; padding: 4px 8px; border-radius: 12px; font-size: 12px;">Node.js</span>
-                                <span style="background: #fff3e0; color: #f57c00; padding: 4px 8px; border-radius: 12px; font-size: 12px;">MongoDB</span>
-                            </div>
-                        </div>
+                <div style="padding: 30px; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif; text-align: center;">
+                    <div style="margin-top: 100px;">
+                        <div style="font-size: 64px; margin-bottom: 24px;">🚧</div>
+                        <h1 style="color: #333; margin-bottom: 16px; font-size: 32px;">준비중입니다</h1>
+                        <p style="color: #666; font-size: 18px;">새로운 콘텐츠를 준비하고 있습니다.</p>
+                        <p style="color: #999; font-size: 14px; margin-top: 24px;">곧 만나요! 👋</p>
                     </div>
                 </div>
             `
